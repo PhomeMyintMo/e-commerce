@@ -39,10 +39,10 @@ const CartTable: React.FC = () => {
       </div>
       <div className="flex flex-col md:flex-row gap-4">
         {cart.length > 0 ? (
-        <div className="flex-1 overflow-x-auto">
-          <Table className="">
+        <div className="flex-1 overflow-x-auto md:overflow-visible">
+          <Table>
             <TableHeader>
-              <TableRow className="">
+              <TableRow>
                 <TableHead>No</TableHead>
                 <TableHead>Item</TableHead>
                 <TableHead></TableHead>

@@ -2,13 +2,11 @@ import { useCart } from "@/contexts/CartContext";
 // import { useWishlist } from "@/contexts/WishListContext";
 import { Heart, Menu, ShoppingCart, UserRound, X } from "lucide-react";
 import React, { useState } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { cart } = useCart();
-  // const {wishlist} = useWishlist();
-  const navigate = useNavigate();
   const location = useLocation();
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
