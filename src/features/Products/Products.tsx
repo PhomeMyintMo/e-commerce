@@ -7,6 +7,13 @@ import { Heart } from "lucide-react";
 import { useWishlist } from "@/contexts/WishListContext";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
   const [open, setOpen] = useState(false);
@@ -16,6 +23,7 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
   const { wishlist, addToWishlist, removeFavoriteItem } = useWishlist();
   const [inputTitle, setInputTitle] = useState<string>("");
   const [searchBox, setSearchBox] = useState<string>("");
+  const [sortOption, setSortOption] = useState<string>("default");
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["products", searchBox, categoryId],
@@ -39,7 +47,16 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
     setInputTitle("");
   };
 
-  const filterProducts = data?.filter((product: any) => product.title.toLowerCase().includes(inputTitle.toLowerCase()));
+  const filterProducts = data?.filter((product: any) =>
+    product.title.toLowerCase().includes(inputTitle.toLowerCase())
+  );
+
+  const sortedProducts = [...(filterProducts || [])];
+  if(sortOption === "lowToHigh"){
+    sortedProducts.sort((a,b)=> a.price - b.price);
+  }else if(sortOption === "highToLow"){
+    sortedProducts.sort((a,b)=> b.price - a.price);
+  }
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
@@ -56,19 +73,30 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
             onChange={handleSearchChange}
             onKeyDown={handleSearch}
           />
-          {
-            inputTitle && (
-              <button className="absolute right-3 top-1/2 transform -translate-y-1/2 "
+          {inputTitle && (
+            <button
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 "
               onClick={clearSearch}
-              >
-                 ✕
-              </button>
-            )
-          }
+            >
+              ✕
+            </button>
+          )}
         </div>
       </div>
+        <div className="">
+          <Select onValueChange={(value)=>setSortOption(value)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Price Sorted By: " />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="default">Default</SelectItem>
+              <SelectItem value="lowToHigh">Lowest to Highest</SelectItem>
+              <SelectItem value="highToLow">Highest to Lowest</SelectItem>
+            </SelectContent>
+          </Select>
+        </div> 
       <div className="flex flex-wrap justify-center md:flex-wrap gap-4 mt-4 p-4 ">
-        {filterProducts.map((product: any) => {
+        {sortedProducts.map((product: any) => {
           const isFavorite = wishlist.some(
             (item: any) => item.id === product.id
           );

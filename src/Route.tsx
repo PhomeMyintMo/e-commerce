@@ -1,51 +1,49 @@
-import React from 'react'
-import { useRoutes } from 'react-router-dom'
-import LogIn from './features/Auth/LogIn'
-import ProtectedRoute from './ProtectedRoute'
-import MainLayout from './layouts/MainLayout'
-import Header from './shared/Header'
-import CartTable from './features/Cart/CartTable'
-import WishlistPage from './features/Wishlist/WishlistPage'
+import React from "react";
+import { useRoutes } from "react-router-dom";
+import LogIn from "./features/Auth/LogIn";
+import MainLayout from "./layouts/MainLayout";
+import Header from "./shared/Header";
+import CartTable from "./features/Cart/CartTable";
+import WishlistPage from "./features/Wishlist/WishlistPage";
+import NotFoundPage from "./components/NotFoundPage";
 
-const Route : React.FC = () => {
+const Route: React.FC = () => {
   const routes = useRoutes([
-    {path: "/login", element: <LogIn/>},
+    { path: "/login", element: <LogIn /> },
     {
       path: "/",
       element: (
-        <ProtectedRoute/>
+        <MainLayout>
+          <Header />
+        </MainLayout>
       ),
-      children: [
-        {
-          path: "/",
-          element: (
-            <MainLayout>
-              <Header/>
-            </MainLayout>
-          )
-        },
-        {
-          path: "/cart",
-          element: (
-            <MainLayout>
-              <CartTable/>
-            </MainLayout>
-          )
-        },
-        {
-          path: "/wishlist",
-          element: (
-            <MainLayout>
-              <WishlistPage/>
-            </MainLayout>
-          )
-        }
-      ]
+    },
+    {
+      path: "/cart",
+      element: (
+        <MainLayout>
+          <CartTable />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "/wishlist",
+      element: (
+        <MainLayout>
+          <WishlistPage />
+        </MainLayout>
+      ),
+    },
+    {
+      path: "*",
+      element: (
+        <MainLayout>
+          <NotFoundPage/>
+        </MainLayout>
+      )
     }
-  ])
-  return (
-    <div>{routes}</div>
-  )
-}
+  ]);
+  return <div>{routes}</div>;
+};
 
-export default Route
+export default Route;
