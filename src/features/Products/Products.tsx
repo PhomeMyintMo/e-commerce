@@ -64,7 +64,7 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
   return (
     <div>
       <div className="flex items-center justify-center">
-        <div className="relative w-64">
+        {/* <div className="relative w-64">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" />
           <Input
             placeholder="Search Products..."
@@ -81,9 +81,9 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
               ✕
             </button>
           )}
-        </div>
+        </div> */}
       </div>
-        <div className="">
+        <div className="flex mt-4 ml-8 justify-center md:justify-start">
           <Select onValueChange={(value)=>setSortOption(value)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Price Sorted By: " />
@@ -95,7 +95,7 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
             </SelectContent>
           </Select>
         </div> 
-      <div className="flex flex-wrap justify-center md:flex-wrap gap-4 mt-4 p-4 ">
+      <div className="flex flex-wrap justify-center md:flex-wrap gap-4 mt-4">
         {sortedProducts.map((product: any) => {
           const isFavorite = wishlist.some(
             (item: any) => item.id === product.id

@@ -6,6 +6,7 @@ import Header from "./shared/Header";
 import CartTable from "./features/Cart/CartTable";
 import WishlistPage from "./features/Wishlist/WishlistPage";
 import NotFoundPage from "./components/NotFoundPage";
+import HomePage from "./features/Home/HomePage";
 
 const Route: React.FC = () => {
   const routes = useRoutes([
@@ -14,7 +15,7 @@ const Route: React.FC = () => {
       path: "/",
       element: (
         <MainLayout>
-          <Header />
+          <HomePage />
         </MainLayout>
       ),
     },

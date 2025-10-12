@@ -2,69 +2,168 @@
   "categories": [
     {
       "id": 1,
-      "name": "Electronics",
-      "slug": "electronics",
-      "image": "https://placehold.co/600x400"
+      "name": "Top",
+      "slug": "top",
+      "image": "https://placehold.co/600x400?text=Top",
+      "subcategories": [
+        {
+          "id": 101,
+          "name": "T-Shirts",
+          "slug": "t-shirts"
+        },
+        {
+          "id": 102,
+          "name": "Blouses",
+          "slug": "blouses"
+        },
+        {
+          "id": 103,
+          "name": "Crop Tops",
+          "slug": "crop-tops"
+        },
+        {
+          "id": 104,
+          "name": "Tank Tops",
+          "slug": "tank-tops"
+        },
+        {
+          "id": 105,
+          "name": "Sweaters",
+          "slug": "sweaters"
+        }
+      ]
     },
     {
       "id": 2,
-      "name": "Fashion",
-      "slug": "fashion",
-      "image": "https://placehold.co/600x400"
+      "name": "Bottom",
+      "slug": "bottom",
+      "image": "https://placehold.co/600x400?text=Bottom",
+      "subcategories": [
+        {
+          "id": 201,
+          "name": "Jeans",
+          "slug": "jeans"
+        },
+        {
+          "id": 202,
+          "name": "Skirts",
+          "slug": "skirts"
+        },
+        {
+          "id": 203,
+          "name": "Shorts",
+          "slug": "shorts"
+        },
+        {
+          "id": 204,
+          "name": "Trousers",
+          "slug": "trousers"
+        },
+        {
+          "id": 205,
+          "name": "Leggings",
+          "slug": "leggings"
+        }
+      ]
     },
     {
       "id": 3,
-      "name": "Furniture",
-      "slug": "furniture",
-      "image": "https://placehold.co/600x400"
+      "name": "Dresses",
+      "slug": "dresses",
+      "image": "https://placehold.co/600x400?text=Dresses",
+      "subcategories": [
+        {
+          "id": 301,
+          "name": "Casual Dresses",
+          "slug": "casual-dresses"
+        },
+        {
+          "id": 302,
+          "name": "Party Dresses",
+          "slug": "party-dresses"
+        },
+        {
+          "id": 303,
+          "name": "Maxi Dresses",
+          "slug": "maxi-dresses"
+        },
+        {
+          "id": 304,
+          "name": "Midi Dresses",
+          "slug": "midi-dresses"
+        },
+        {
+          "id": 305,
+          "name": "Floral Dresses",
+          "slug": "floral-dresses"
+        }
+      ]
     },
     {
       "id": 4,
-      "name": "Toys",
-      "slug": "toys",
-      "image": "https://placehold.co/600x400"
+      "name": "Scarf",
+      "slug": "scarf",
+      "image": "https://placehold.co/600x400?text=Scarf",
+      "subcategories": [
+        {
+          "id": 401,
+          "name": "Silk Scarves",
+          "slug": "silk-scarves"
+        },
+        {
+          "id": 402,
+          "name": "Cotton Scarves",
+          "slug": "cotton-scarves"
+        },
+        {
+          "id": 403,
+          "name": "Wool Scarves",
+          "slug": "wool-scarves"
+        },
+        {
+          "id": 404,
+          "name": "Printed Scarves",
+          "slug": "printed-scarves"
+        },
+        {
+          "id": 405,
+          "name": "Pashmina Scarves",
+          "slug": "pashmina-scarves"
+        }
+      ]
     },
     {
       "id": 5,
-      "name": "Books",
-      "slug": "books",
-      "image": "https://placehold.co/600x400"
-    },
-    {
-      "id": 6,
-      "name": "Beauty",
-      "slug": "beauty",
-      "image": "https://placehold.co/600x400"
-    },
-    {
-      "id": 7,
-      "name": "Sports",
-      "slug": "sports",
-      "image": "https://placehold.co/600x400"
-    },
-    {
-      "id": 8,
-      "name": "Automotive",
-      "slug": "automotive",
-      "image": "https://placehold.co/600x400"
-    },
-    {
-      "id": 9,
-      "name": "Home Appliances",
-      "slug": "home-appliances",
-      "image": "https://placehold.co/600x400"
-    },
-    {
-      "id": 10,
-      "name": "Garden",
-      "slug": "garden",
-      "image": "https://placehold.co/600x400"
-    },
-    {
-      "id": 11,
-      "name": "Handmade",
-      "slug": "handmade",
-      "image": "https://placehold.co/600x400"
+      "name": "Shoes",
+      "slug": "shoes",
+      "image": "https://placehold.co/600x400?text=Shoes",
+      "subcategories": [
+        {
+          "id": 501,
+          "name": "Heels",
+          "slug": "heels"
+        },
+        {
+          "id": 502,
+          "name": "Flats",
+          "slug": "flats"
+        },
+        {
+          "id": 503,
+          "name": "Boots",
+          "slug": "boots"
+        },
+        {
+          "id": 504,
+          "name": "Sneakers",
+          "slug": "sneakers"
+        },
+        {
+          "id": 505,
+          "name": "Sandals",
+          "slug": "sandals"
+        }
+      ]
     }
   ],
   "products": [
@@ -75,6 +174,7 @@
       "price": 120,
       "description": "High-quality wireless headphones for immersive sound.",
       "categoryId": 1,
+      "subcategoryId": 101,
       "category": {
         "id": 1,
         "name": "Electronics",
@@ -82,8 +182,8 @@
         "image": "https://placehold.co/600x400"
       },
       "images": [
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400",
+        "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=705",
+        "https://media.istockphoto.com/id/1345207060/photo/close-up-of-cozy-warm-sweaters-copy-space.webp?a=1&s=612x612&w=0&k=20&c=PAMALUZeSk9SLQVC7sEBCsy5DQZJ5Dv8t4uF2RUH6Jg=",
         "https://placehold.co/600x400"
       ]
     },
@@ -94,6 +194,7 @@
       "price": 75,
       "description": "Track your workouts and notifications with this smartwatch.",
       "categoryId": 1,
+      "subcategoryId": 102,
       "category": {
         "id": 1,
         "name": "Electronics",
@@ -112,6 +213,8 @@
       "slug": "bluetooth-speaker",
       "price": 45,
       "description": "Portable Bluetooth speaker with deep bass.",
+      "categoryId": 1,
+      "subcategoryId": 103,
       "category": {
         "id": 1,
         "name": "Electronics",
@@ -130,7 +233,8 @@
       "slug": "mens-tshirt",
       "price": 25,
       "description": "Comfortable slim-fit T-shirt perfect for everyday wear.",
-      "categoryId" : 2,
+      "categoryId": 2,
+      "subcategoryId": 201,
       "category": {
         "id": 2,
         "name": "Fashion",
@@ -138,9 +242,9 @@
         "image": "https://placehold.co/600x400"
       },
       "images": [
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400"
+        "https://plus.unsplash.com/premium_photo-1725914369475-4ee79acbaaa4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
+        "https://plus.unsplash.com/premium_photo-1725914369469-0c8fbd81277c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
+        "https://plus.unsplash.com/premium_photo-1725914369361-35d74d281e53?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1pbi1zYW1lLXNlcmllc3wzfHx8ZW58MHx8fHx8&auto=format&fit=crop&q=60&w=600"
       ]
     },
     {
@@ -149,7 +253,8 @@
       "slug": "womens-jacket",
       "price": 60,
       "description": "Stylish and warm jacket for outdoor adventures.",
-      "categoryId" : 2,
+      "categoryId": 2,
+      "subcategoryId": 202,
       "category": {
         "id": 2,
         "name": "Fashion",
@@ -157,9 +262,9 @@
         "image": "https://placehold.co/600x400"
       },
       "images": [
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400"
+        "https://plus.unsplash.com/premium_photo-1675186049366-64a655f8f537?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
+        "https://plus.unsplash.com/premium_photo-1675186049297-035b3f692c04?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
+        "https://plus.unsplash.com/premium_photo-1675186049419-d48f4b28fe7c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8&auto=format&fit=crop&q=60&w=600"
       ]
     },
     {
@@ -168,7 +273,8 @@
       "slug": "leather-boots",
       "price": 85,
       "description": "Durable leather boots for men and women.",
-      "categoryId" : 2,
+      "categoryId": 2,
+      "subcategoryId": 203,
       "category": {
         "id": 2,
         "name": "Fashion",
@@ -176,9 +282,9 @@
         "image": "https://placehold.co/600x400"
       },
       "images": [
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400"
+        "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1025",
+        "https://images.unsplash.com/photo-1600185652960-c9d8869d015c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=600",
+        "https://images.unsplash.com/photo-1600185365778-7875a359b924?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=600"
       ]
     },
     {
@@ -187,7 +293,8 @@
       "slug": "wooden-dining-table",
       "price": 250,
       "description": "Elegant wooden dining table for family gatherings.",
-      "categoryId" : 3,
+      "categoryId": 3,
+      "subcategoryId": 301,
       "category": {
         "id": 3,
         "name": "Furniture",
@@ -195,9 +302,9 @@
         "image": "https://placehold.co/600x400"
       },
       "images": [
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400"
+        "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070",
+        "https://media.istockphoto.com/id/1403471557/photo/stylish-living-room-interior-of-a-modern-apartment-with-green-sofa-wooden-table-with-vase-of.webp?a=1&s=612x612&w=0&k=20&c=w6mJDRPiBFpnSnwJqzbHb3bEglp00sNlzAjR8BNpka8=",
+        "https://media.istockphoto.com/id/2192762690/photo/a-green-sofa-is-in-the-room.webp?a=1&s=612x612&w=0&k=20&c=4B_HBnUJwn_iwdMHab_MfzI_GEQQEMkzjeYpSCF09TA="
       ]
     },
     {
@@ -206,7 +313,8 @@
       "slug": "office-chair",
       "price": 85,
       "description": "Comfortable ergonomic office chair for long hours.",
-      "categoryId" : 3,
+      "categoryId": 3,
+      "subcategoryId": 303,
       "category": {
         "id": 3,
         "name": "Furniture",
@@ -214,9 +322,9 @@
         "image": "https://placehold.co/600x400"
       },
       "images": [
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400"
+        "https://images.unsplash.com/photo-1592078615290-033ee584e267?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=764",
+        "https://images.unsplash.com/photo-1574189555774-7cbcd66d0fcb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=600",
+        "https://images.unsplash.com/photo-1574189555774-7cbcd66d0fcb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDZ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=600"
       ]
     },
     {
@@ -225,7 +333,8 @@
       "slug": "coffee-table",
       "price": 120,
       "description": "Stylish coffee table made of solid wood.",
-            "categoryId" : 3,
+      "categoryId": 3,
+      "subcategoryId": 304,
       "category": {
         "id": 3,
         "name": "Furniture",
@@ -244,7 +353,8 @@
       "slug": "childrens-puzzle",
       "price": 15,
       "description": "Fun and educational puzzle for kids.",
-            "categoryId" : 4,
+      "categoryId": 4,
+      "subcategoryId": 401,
       "category": {
         "id": 4,
         "name": "Toys",
@@ -263,7 +373,8 @@
       "slug": "action-figure-set",
       "price": 30,
       "description": "Collectible action figures for kids and fans.",
-      "categoryId" : 4,
+      "categoryId": 4,
+      "subcategoryId": 402,
       "category": {
         "id": 4,
         "name": "Toys",
@@ -282,7 +393,8 @@
       "slug": "rc-car",
       "price": 50,
       "description": "Remote-controlled car with fast speed.",
-      "categoryId" : 4,
+      "categoryId": 4,
+      "subcategoryId": 403,
       "category": {
         "id": 4,
         "name": "Toys",
@@ -290,9 +402,9 @@
         "image": "https://placehold.co/600x400"
       },
       "images": [
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400",
-        "https://placehold.co/600x400"
+        "https://plus.unsplash.com/premium_photo-1681276170683-706111cf496e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170",
+        "https://plus.unsplash.com/premium_photo-1681276170568-a5632dc01a77?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=600",
+        "https://plus.unsplash.com/premium_photo-1681276170423-2c60b95094b4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDd8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&q=60&w=600"
       ]
     },
     {
@@ -301,7 +413,8 @@
       "slug": "thriller-novel",
       "price": 12,
       "description": "Engaging thriller novel with unexpected twists.",
-      "categoryId" : 5,
+      "categoryId": 5,
+      "subcategoryId": 501,
       "category": {
         "id": 5,
         "name": "Books",
@@ -320,7 +433,8 @@
       "slug": "cookbook",
       "price": 20,
       "description": "Step-by-step recipes for beginners and pros.",
-       "categoryId" : 5,
+      "categoryId": 5,
+      "subcategoryId": 502,
       "category": {
         "id": 5,
         "name": "Books",
@@ -339,7 +453,8 @@
       "slug": "childrens-story-book",
       "price": 15,
       "description": "Beautifully illustrated story book for kids.",
-      "categoryId" : 5,
+      "categoryId": 5,
+      "subcategoryId": 503,
       "category": {
         "id": 5,
         "name": "Books",
