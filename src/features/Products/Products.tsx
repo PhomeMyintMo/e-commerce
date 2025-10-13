@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import BreadcrumbComponent from "@/components/BreadcrumbComponent";
 
 const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
   const [open, setOpen] = useState(false);
@@ -95,6 +96,7 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
             </SelectContent>
           </Select>
         </div> 
+        <div><BreadcrumbComponent/></div>
       <div className="flex flex-wrap justify-center md:flex-wrap gap-4 mt-4">
         {sortedProducts.map((product: any) => {
           const isFavorite = wishlist.some(

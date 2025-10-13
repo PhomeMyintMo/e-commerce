@@ -6,9 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        accent: '#8B5CF6',
-      },
     },
   },
   plugins: [],
