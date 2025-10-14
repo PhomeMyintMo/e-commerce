@@ -1,6 +1,7 @@
 import React from 'react'
 import { ScrollArea } from '@radix-ui/react-scroll-area'
 import NavBar from '@/shared/NavBar'
+import Footer from '@/shared/Footer'
 
 const MainLayout: React.FC<{children: React.ReactNode}> = ({children}) => {
   return (
@@ -11,7 +12,7 @@ const MainLayout: React.FC<{children: React.ReactNode}> = ({children}) => {
             {children}
         </ScrollArea>
       </main>
-
+      <Footer/>
     </div>
   )
 }

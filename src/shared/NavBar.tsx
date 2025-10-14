@@ -33,7 +33,7 @@ const NavBar: React.FC = () => {
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <header className="top-0 sticky z-10 shadow-lg px-4">
+    <header className="top-0 sticky z-10 shadow-lg px-4 bg-neutral-50">
       <div className="flex justify-between items-center py-4">
         <div className="hidden md:flex gap-4">
           <button onClick={()=>navigate("/") } className="cursor-pointer">Home</button>

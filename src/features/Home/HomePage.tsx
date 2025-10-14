@@ -2,14 +2,27 @@ import React, { useState } from "react";
 import femmestyle from "../../assets/femmestyle.mp4";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProducts } from "@/apis/ProductsApi";
+import type { ProductResponseType } from "../Products/type";
+import { ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { getCategories } from "@/apis/CategoriesApi";
 
 const HomePage: React.FC = () => {
-  const { data, isLoading, isError } = useQuery({
+  const {
+    data: productData,
+    isLoading,
+    isError,
+  } = useQuery<ProductResponseType>({
     queryKey: ["products"],
     queryFn: () => getAllProducts(),
   });
 
-  const newProducts = data?.filter((p: any) => p.isNew);
+  const { data: categoryData } = useQuery({
+    queryKey: ["category"],
+    queryFn: () => getCategories(),
+  });
+
+  const newProducts = productData?.filter((p: any) => p.isNew);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
@@ -31,24 +44,53 @@ const HomePage: React.FC = () => {
             A Season of Renewel
           </h1>
           <h4 className="text-2xl mb-16 font-semibold">Welcome Autumn!</h4>
-          <h6 className="flex text-xl cursor-pointer items-center justify-center font-semibold underline underline-offset-8">
+          <h6 className="flex text-lg md:text-xl cursor-pointer items-center justify-center font-semibold underline underline-offset-8">
             Shop now
           </h6>
         </div>
       </div>
 
-      <div className="">
-        <div>
-          <h2 className="text-xl font-medium">New Products</h2>
-          <h4>The latest looks, created with passion.</h4>
+      {/* new products */}
+      <ScrollArea className="">
+        <div className="">
+          <div className="mb-4">
+            <h2 className="text-xl font-medium">New Products</h2>
+            <h4>The latest looks, created with passion.</h4>
+          </div>
+          <div className="flex gap-8 items-center justify-center">
+            {newProducts?.map((product: any) => (
+              <div className="px-16 ">
+                <img
+                  src={product.category.image}
+                  className="w-40 h-40 border-2"
+                />
+                <h3 className="font-medium">{product.category.name}</h3>
+              </div>
+            ))}
+          </div>
         </div>
-        {newProducts.map((product: any) => (
-          <div>
-            <img src={product.category.image}/>
-            <h3>{product.category.name}</h3>
+        <ScrollBar orientation="horizontal" className="text-slate-950" />
+      </ScrollArea>
+
+      {/* category */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 md:px-16 mt-4">
+        {categoryData?.map((category: any) => (
+          <div
+            key={category.id}
+            className="flex flex-col items-center text-center relative"
+          >
+            <img
+              src={category.image}
+              alt={category.name}
+              className="w-[500px] h-[500px] object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition-transform"
+            />
+            <div className="">
+              <h3></h3>
+            </div>
           </div>
         ))}
       </div>
+
       {/* <Products categoryId={selectCategory} /> */}
     </div>
   );
