@@ -6,8 +6,10 @@ import type { ProductResponseType } from "../Products/type";
 import { ScrollBar } from "@/components/ui/scroll-area";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getCategories } from "@/apis/CategoriesApi";
+import { useNavigate } from "react-router-dom";
 
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
   const {
     data: productData,
     isLoading,
@@ -51,7 +53,7 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* new products */}
-      <ScrollArea className="">
+      <ScrollArea>
         <div className="">
           <div className="mb-4">
             <h2 className="text-xl font-medium">New Products</h2>
@@ -73,19 +75,28 @@ const HomePage: React.FC = () => {
       </ScrollArea>
 
       {/* category */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 px-4 md:px-16 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-16 mt-4">
         {categoryData?.map((category: any) => (
           <div
             key={category.id}
-            className="flex flex-col items-center text-center relative"
+            className="relative group overflow-hidden rounded-lg shadow-md cursor-pointer"
           >
             <img
               src={category.image}
               alt={category.name}
-              className="w-[500px] h-[500px] object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition-transform"
+              className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-110"
             />
-            <div className="">
-              <h3></h3>
+
+            {/* Overlay */}
+            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            {/* Centered text */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center px-8">
+              <h3 className="text-white text-3xl font-semibold drop-shadow-md group-hover:scale-105 transition-transform">
+                {category.name}
+              </h3>
+              <h4 className="text-white text-lg">{category.description}</h4>
+              <button className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8" onClick={()=>navigate("/products")}>SHOP NOW</button>
             </div>
           </div>
         ))}
