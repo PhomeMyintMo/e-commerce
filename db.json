@@ -5,7 +5,7 @@
       "name": "Top",
       "slug": "top",
       "description": "Discover our stylish tops — from breezy blouses to trendy crop tops, perfect for every occasion.",
-      "image": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=705",
+      "image": "https://images.unsplash.com/photo-1656306741017-f7624f18c395?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
       "subcategories": [
         {
           "id": 101,
@@ -13,7 +13,7 @@
           "slug": "t-shirts"
         },
         {
-          "id": 102,
+          "id": 102,  
           "name": "Blouses",
           "slug": "blouses"
         },
@@ -39,7 +39,7 @@
       "name": "Bottom",
       "slug": "bottom",
       "description": "Find your perfect fit with our collection of skirts, jeans, and trousers that balance comfort and style.",
-      "image": "https://placehold.co/600x400?text=Bottom",
+      "image": "https://images.unsplash.com/photo-1746733706320-bc3b55dfcd57?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1303",
       "subcategories": [
         {
           "id": 201,
@@ -73,7 +73,7 @@
       "name": "Dresses",
       "slug": "dresses",
       "description": "Effortlessly chic dresses for every mood — whether you’re going casual, formal, or flirty.",
-      "image": "https://placehold.co/600x400?text=Dresses",
+      "image": "https://images.unsplash.com/photo-1742312185113-a25fc5f8a1d6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
       "subcategories": [
         {
           "id": 301,
@@ -107,7 +107,7 @@
       "name": "Scarf",
       "slug": "scarf",
       "description": "Wrap up in elegance with scarves that add warmth, texture, and a touch of sophistication.",
-      "image": "https://placehold.co/600x400?text=Scarf",
+      "image": "https://images.unsplash.com/photo-1631702786837-0bd68d6532aa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=765",
       "subcategories": [
         {
           "id": 401,
@@ -141,7 +141,7 @@
       "name": "Shoes",
       "slug": "shoes",
        "description": "Step into confidence with shoes that complete your look — from casual sneakers to elegant heels.",
-      "image": "https://placehold.co/600x400?text=Shoes",
+      "image": "https://images.unsplash.com/photo-1582896911329-35927907b8f3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=782",
       "subcategories": [
         {
           "id": 501,
@@ -174,10 +174,10 @@
   "products": [
     {
       "id": 1,
-      "title": "Wireless Headphones",
-      "slug": "wireless-headphones",
+      "title": "Classic Cotton T-Shirt",
+      "slug": "Classic Cotton T-Shirt",
       "price": 120,
-      "description": "High-quality wireless headphones for immersive sound.",
+      "description": "Soft, breathable cotton T-shirt perfect for everyday wear.",
       "categoryId": 1,
       "subcategoryId": 101,
       "size": ["S","M", "XL", "2XL"],
@@ -188,8 +188,8 @@
       ],
       "category": {
         "id": 1,
-        "name": "Electronics",
-        "slug": "electronics",
+        "name": "Top",
+        "slug": "top",
         "image": "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=705"
       },
       "images": [
@@ -201,16 +201,16 @@
     },
     {
       "id": 2,
-      "title": "Smartwatch",
-      "slug": "smartwatch",
+      "title": "Silk Blouse",
+      "slug": "Silk Blouse",
       "price": 75,
-      "description": "Track your workouts and notifications with this smartwatch.",
+      "description": "Elegant silk blouse that pairs beautifully with skirts or trousers.",
       "categoryId": 1,
       "subcategoryId": 102,
       "category": {
         "id": 1,
-        "name": "Electronics",
-        "slug": "electronics",
+        "name": "Top",
+        "slug": "top",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -221,16 +221,16 @@
     },
     {
       "id": 3,
-      "title": "Bluetooth Speaker",
-      "slug": "bluetooth-speaker",
+      "title": "Chiffon Puff Sleeve Blouse",
+      "slug": "Chiffon Puff Sleeve Blouse",
       "price": 45,
-      "description": "Portable Bluetooth speaker with deep bass.",
+      "description": "Light and airy chiffon blouse with puff sleeves for a feminine touch.",
       "categoryId": 1,
       "subcategoryId": 103,
       "category": {
         "id": 1,
-        "name": "Electronics",
-        "slug": "electronics",
+        "name": "Top",
+        "slug": "top",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -241,16 +241,16 @@
     },
     {
       "id": 4,
-      "title": "Men's T-Shirt",
-      "slug": "mens-tshirt",
+      "title": "Wide-Leg Jeans",
+      "slug": "Wide-Leg Jeans",
       "price": 25,
-      "description": "Comfortable slim-fit T-shirt perfect for everyday wear.",
+      "description": "Trendy wide-leg jeans for a relaxed yet stylish vibe.",
       "categoryId": 2,
       "subcategoryId": 201,
       "category": {
         "id": 2,
-        "name": "Fashion",
-        "slug": "fashion",
+        "name": "Bottom",
+        "slug": "bottom",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -262,10 +262,10 @@
     },
     {
       "id": 5,
-      "title": "Women's Jacket",
-      "slug": "womens-jacket",
+      "title": "Pleated Midi Skirt",
+      "slug": "Pleated Midi Skirt",
       "price": 60,
-      "description": "Stylish and warm jacket for outdoor adventures.",
+      "description": "Elegant pleated skirt that flows with every step.",
       "categoryId": 2,
       "subcategoryId": 202,
       "category": {
@@ -283,16 +283,16 @@
     },
     {
       "id": 6,
-      "title": "Leather Boots",
-      "slug": "leather-boots",
+      "title": "Linen Wide-Leg Pants",
+      "slug": "Linen Wide-Leg Pants",
       "price": 85,
-      "description": "Durable leather boots for men and women.",
+      "description": "Breathable linen trousers ideal for warm weather.",
       "categoryId": 2,
       "subcategoryId": 203,
       "category": {
         "id": 2,
-        "name": "Fashion",
-        "slug": "fashion",
+        "name": "Bottom",
+        "slug": "bottom",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -303,16 +303,16 @@
     },
     {
       "id": 7,
-      "title": "Wooden Dining Table",
-      "slug": "wooden-dining-table",
+      "title": "Floral Maxi Dress",
+      "slug": "Floral Maxi Dress",
       "price": 250,
-      "description": "Elegant wooden dining table for family gatherings.",
+      "description": "Flowy floral maxi dress for romantic summer outings.",
       "categoryId": 3,
       "subcategoryId": 301,
       "category": {
         "id": 3,
-        "name": "Furniture",
-        "slug": "furniture",
+        "name": "Dresses",
+        "slug": "dresses",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -324,16 +324,16 @@
     },
     {
       "id": 8,
-      "title": "Office Chair",
-      "slug": "office-chair",
+      "title": "Elegant Midi Dress",
+      "slug": "Elegant Midi Dress",
       "price": 85,
-      "description": "Comfortable ergonomic office chair for long hours.",
+      "description": "Chic and simple midi dress with a flattering silhouette.",
       "categoryId": 3,
       "subcategoryId": 303,
       "category": {
         "id": 3,
-        "name": "Furniture",
-        "slug": "furniture",
+        "name": "Dresses",
+        "slug": "dresses",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -344,16 +344,16 @@
     },
     {
       "id": 9,
-      "title": "Coffee Table",
-      "slug": "coffee-table",
+      "title": "Bohemian Floral Dress",
+      "slug": "Bohemian Floral Dress",
       "price": 120,
-      "description": "Stylish coffee table made of solid wood.",
+      "description": "Laid-back boho dress with colorful floral patterns.",
       "categoryId": 3,
       "subcategoryId": 304,
       "category": {
         "id": 3,
-        "name": "Furniture",
-        "slug": "furniture",
+        "name": "Dresses",
+        "slug": "dresses",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -364,16 +364,16 @@
     },
     {
       "id": 10,
-      "title": "Children's Puzzle",
-      "slug": "childrens-puzzle",
+      "title": "Silk Printed Scarf",
+      "slug": "Silk Printed Scarf",
       "price": 15,
-      "description": "Fun and educational puzzle for kids.",
+      "description": "Luxurious silk scarf with beautiful print designs.",
       "categoryId": 4,
       "subcategoryId": 401,
       "category": {
         "id": 4,
-        "name": "Toys",
-        "slug": "toys",
+        "name": "Scarf",
+        "slug": "scarf",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -385,16 +385,16 @@
     },
     {
       "id": 11,
-      "title": "Action Figure Set",
-      "slug": "action-figure-set",
+      "title": "Cotton Everyday Scarf",
+      "slug": "Cotton Everyday Scarf",
       "price": 30,
-      "description": "Collectible action figures for kids and fans.",
+      "description": "Soft cotton scarf ideal for daily use.",
       "categoryId": 4,
       "subcategoryId": 402,
       "category": {
         "id": 4,
-        "name": "Toys",
-        "slug": "toys",
+        "name": "Scarf",
+        "slug": "scarf",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -405,16 +405,16 @@
     },
     {
       "id": 12,
-      "title": "RC Car",
-      "slug": "rc-car",
+      "title": "Striped Cotton Scarf",
+      "slug": "Striped Cotton Scarf",
       "price": 50,
-      "description": "Remote-controlled car with fast speed.",
+      "description": "Light striped scarf for casual layering.",
       "categoryId": 4,
       "subcategoryId": 403,
       "category": {
         "id": 4,
-        "name": "Toys",
-        "slug": "toys",
+        "name": "Scarf",
+        "slug": "scarf",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -425,16 +425,16 @@
     },
     {
       "id": 13,
-      "title": "Thriller Novel",
-      "slug": "thriller-novel",
+      "title": "Classic Black Heels",
+      "slug": "Classic Black Heels",
       "price": 12,
-      "description": "Engaging thriller novel with unexpected twists.",
+      "description": "Sleek black heels for formal and evening occasions.",
       "categoryId": 5,
       "subcategoryId": 501,
       "category": {
         "id": 5,
-        "name": "Books",
-        "slug": "books",
+        "name": "Shoes",
+        "slug": "shoes",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -445,16 +445,16 @@
     },
     {
       "id": 14,
-      "title": "Cookbook",
-      "slug": "cookbook",
+      "title": "Pointed Toe Flats",
+      "slug": "Pointed Toe Flats",
       "price": 20,
-      "description": "Step-by-step recipes for beginners and pros.",
+      "description": "Chic pointed flats for comfortable sophistication.",
       "categoryId": 5,
       "subcategoryId": 502,
       "category": {
         "id": 5,
-        "name": "Books",
-        "slug": "books",
+        "name": "Shoes",
+        "slug": "shoes",
         "image": "https://placehold.co/600x400"
       },
       "images": [
@@ -465,16 +465,16 @@
     },
     {
       "id": 15,
-      "title": "Children's Story Book",
-      "slug": "childrens-story-book",
+      "title": "Leather Ankle Boots",
+      "slug": "Leather Ankle Boots",
       "price": 15,
-      "description": "Beautifully illustrated story book for kids.",
+      "description": "Stylish ankle boots crafted from genuine leather.",
       "categoryId": 5,
       "subcategoryId": 503,
       "category": {
         "id": 5,
-        "name": "Books",
-        "slug": "books",
+        "name": "Shoes",
+        "slug": "shoes",
         "image": "https://placehold.co/600x400"
       },
       "images": [

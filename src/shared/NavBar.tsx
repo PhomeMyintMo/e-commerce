@@ -36,16 +36,16 @@ const NavBar: React.FC = () => {
     <header className="top-0 sticky z-10 shadow-lg px-4 bg-neutral-50">
       <div className="flex justify-between items-center py-4">
         <div className="hidden md:flex gap-4">
-          <button onClick={()=>navigate("/") } className="cursor-pointer">Home</button>
+          <button onClick={()=>navigate("/") } className="cursor-pointer hover:text-secondary">Home</button>
           <button
             onClick={() => {
               setSelectCategory(null);
-              navigate("/products")
+              navigate("/allproducts")
             }}
-            className={`cursor-pointer px-2 py-2 ${
+            className={`cursor-pointer hover:text-secondary px-2 py-2 ${
               selectCategory === null
                 ? "text-slate-900"
-                : "hover:text-slate-950"
+                : "hover:bg-secondary"
             }`}
           >
             Shop
@@ -53,7 +53,7 @@ const NavBar: React.FC = () => {
 
           <div className="relative group inline-block">
             {/* Parent button */}
-            <button className="flex items-center gap-1 py-2 cursor-pointer">
+            <button className="flex items-center gap-1 py-2 cursor-pointer hover:text-secondary">
               Products
               <span className="text-xs bg-slate-400 rounded px-2 py-0.5">
                 Categories
@@ -107,7 +107,7 @@ const NavBar: React.FC = () => {
       }`}
             to="/wishlist"
           >
-            <Heart size={24} strokeWidth={1} className="text-primary" />
+            <Heart size={24} strokeWidth={1} className="" />
           </Link>
 
           <Link
@@ -119,7 +119,7 @@ const NavBar: React.FC = () => {
       }`}
             to="/cart"
           >
-            <ShoppingCart size={24} strokeWidth={1} className="text-primary" />
+            <ShoppingCart size={24} strokeWidth={1} className="" />
             {totalItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                 {totalItems}

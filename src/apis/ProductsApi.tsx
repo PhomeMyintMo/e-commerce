@@ -1,7 +1,7 @@
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (title?:string) => {
     try{
-        const result = await fetch(`http://localhost:5000/products`);
+        const result = await fetch(`http://localhost:5000/products?title=${title}`);
         console.log("products:", result);
         return result.json();
     }catch(error){

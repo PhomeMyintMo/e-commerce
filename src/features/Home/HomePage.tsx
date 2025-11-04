@@ -3,8 +3,6 @@ import femmestyle from "../../assets/femmestyle.mp4";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProducts } from "@/apis/ProductsApi";
 import type { ProductResponseType } from "../Products/type";
-import { ScrollBar } from "@/components/ui/scroll-area";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { getCategories } from "@/apis/CategoriesApi";
 import { useNavigate } from "react-router-dom";
 
@@ -24,7 +22,9 @@ const HomePage: React.FC = () => {
     queryFn: () => getCategories(),
   });
 
-  const newProducts = productData?.filter((p: any) => p.isNew);
+  const newProducts = productData?.filter((p: any) => p.isNew === true);
+  {console.log(newProducts)}
+
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
         />
 
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-          <h1 className="text-4xl md:text-6xl font-bold mb-8 text-pink-400">
+          <h1 className="text-4xl md:text-6xl font-bold mb-8 text-primary">
             A Season of Renewel
           </h1>
           <h4 className="text-2xl mb-16 font-semibold">Welcome Autumn!</h4>
@@ -53,38 +53,44 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* new products */}
-      <ScrollArea>
-        <div className="">
-          <div className="mb-4">
-            <h2 className="text-xl font-medium">New Products</h2>
-            <h4>The latest looks, created with passion.</h4>
+        <div className="px-4 sm:px-8 md:px-16 lg:px-32 mt-16 mb-16">
+          <div className="mb-8 text-center md:text-left">
+            <h2 className="text-2xl md:text-3xl font-semibold">New Products</h2>
+            <h4 className="text-gray-600">The latest looks, created with passion.</h4>
           </div>
-          <div className="flex gap-8 items-center justify-center">
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-8">
             {newProducts?.map((product: any) => (
-              <div className="px-16 ">
+              <div
+                key={product.id}
+                className="flex flex-col items-center text-center hover:scale-105 transition-transform cursor-pointer"
+              > 
                 <img
-                  src={product.category.image}
-                  className="w-40 h-40 border-2"
+                  src={product.images[0]}
+                  alt={product.title}
+                  className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-full aspect-square object-cover  shadow-md"
                 />
-                <h3 className="font-medium">{product.category.name}</h3>
+                <h3 className="mt-2 font-medium text-sm sm:text-base md:text-lg">
+                  {product.title}
+                </h3>
               </div>
             ))}
+            
           </div>
         </div>
-        <ScrollBar orientation="horizontal" className="text-slate-950" />
-      </ScrollArea>
+
 
       {/* category */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-16 mt-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  mt-4">
         {categoryData?.map((category: any) => (
           <div
             key={category.id}
-            className="relative group overflow-hidden rounded-lg shadow-md cursor-pointer"
+            className="relative group overflow-hidden  shadow-md cursor-pointer"
           >
             <img
               src={category.image}
               alt={category.name}
-              className="w-full h-[400px] object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-[500px] object-cover transition-transform duration-500 group-hover:scale-110"
             />
 
             {/* Overlay */}
@@ -96,7 +102,7 @@ const HomePage: React.FC = () => {
                 {category.name}
               </h3>
               <h4 className="text-white text-lg">{category.description}</h4>
-              <button className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8" onClick={()=>navigate("/products")}>SHOP NOW</button>
+              <button className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8" onClick={() => navigate("/products")}>SHOP NOW</button>
             </div>
           </div>
         ))}
