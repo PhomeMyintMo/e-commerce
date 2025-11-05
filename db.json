@@ -4,6 +4,7 @@
       "id": 1,
       "name": "Top",
       "slug": "top",
+      "categoryName": "clothing",
       "description": "Discover our stylish tops — from breezy blouses to trendy crop tops, perfect for every occasion.",
       "image": "https://images.unsplash.com/photo-1656306741017-f7624f18c395?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
       "subcategories": [
@@ -38,6 +39,7 @@
       "id": 2,
       "name": "Bottom",
       "slug": "bottom",
+      "categoryName": "clothing",
       "description": "Find your perfect fit with our collection of skirts, jeans, and trousers that balance comfort and style.",
       "image": "https://images.unsplash.com/photo-1746733706320-bc3b55dfcd57?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1303",
       "subcategories": [
@@ -72,6 +74,7 @@
       "id": 3,
       "name": "Dresses",
       "slug": "dresses",
+      "categoryName": "clothing",
       "description": "Effortlessly chic dresses for every mood — whether you’re going casual, formal, or flirty.",
       "image": "https://images.unsplash.com/photo-1742312185113-a25fc5f8a1d6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
       "subcategories": [
@@ -106,6 +109,7 @@
       "id": 4,
       "name": "Scarf",
       "slug": "scarf",
+      "categoryName": "accessories",
       "description": "Wrap up in elegance with scarves that add warmth, texture, and a touch of sophistication.",
       "image": "https://images.unsplash.com/photo-1631702786837-0bd68d6532aa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=765",
       "subcategories": [
@@ -140,6 +144,7 @@
       "id": 5,
       "name": "Shoes",
       "slug": "shoes",
+      "categoryName": "accessories",
        "description": "Step into confidence with shoes that complete your look — from casual sneakers to elegant heels.",
       "image": "https://images.unsplash.com/photo-1582896911329-35927907b8f3?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=782",
       "subcategories": [

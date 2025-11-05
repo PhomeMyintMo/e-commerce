@@ -40,7 +40,7 @@ const NavBar: React.FC = () => {
           <button
             onClick={() => {
               setSelectCategory(null);
-              navigate("/allproducts")
+              navigate("/products")
             }}
             className={`cursor-pointer hover:text-secondary px-2 py-2 ${
               selectCategory === null

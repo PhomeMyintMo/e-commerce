@@ -17,14 +17,14 @@ const Route: React.FC = () => {
         </MainLayout>
       ),
     },
-    // {
-    //   path: "/allproducts",
-    //   element:(
-    //     <MainLayout>
-    //       <Products/>
-    //     </MainLayout>
-    //   )
-    // },
+    {
+      path: "/products",
+      element:(
+        <MainLayout>
+          <Products/>
+        </MainLayout>
+      ),
+    },
     {
       path: "/cart",
       element: (

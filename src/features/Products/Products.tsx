@@ -1,9 +1,9 @@
-import { getProductsByCategory } from "@/apis/CategoriesApi";
+import { getCategories, getProductsByCategory } from "@/apis/CategoriesApi";
 import { getAllProducts } from "@/apis/ProductsApi";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import ProductDetailPage from "./ProductDetailPage";
-import { Heart } from "lucide-react";
+import { Heart, Scale } from "lucide-react";
 import { useWishlist } from "@/contexts/WishListContext";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,44 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import BreadcrumbComponent from "@/components/BreadcrumbComponent";
+
+const CategoryList: React.FC = () => {
+  const { data: categoryData, isLoading } = useQuery({
+    queryKey: ["category"],
+    queryFn: () => getCategories(),
+  });
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+    1
+  );
+
+  if (isLoading) return <div>Loading categories...</div>;
+
+  return (
+    <div className="">
+      <div className="flex gap-2 justify-center">
+        {categoryData.map((category: any) => (
+          <div key={category.id} className="">
+            <img
+              src={category.image}
+              alt={category.name}
+              className={`w-24 h-24 border-2 object-cover transition-transform duration-500 hover:scale-110 cursor-pointer
+                ${
+                  selectedCategoryId === category.id ? "scale-110" : "scale-100"
+                }
+                `}
+              onClick={() => setSelectedCategoryId(category.id)}
+            />
+            <div className=" text-xs mt-2">{category.name}</div>
+          </div>
+        ))}
+      </div>
+      <div className="">
+        {selectedCategoryId && <Products categoryId={selectedCategoryId} />}
+      </div>
+    </div>
+  );
+};
 
 const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
   const [open, setOpen] = useState(false);
@@ -32,40 +70,42 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
       categoryId === null
         ? getAllProducts(searchBox)
         : getProductsByCategory(Number(categoryId)),
+    enabled: categoryId !== null,
   });
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputTitle(e.target.value);
-  };
+  // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setInputTitle(e.target.value);
+  // };
 
-  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      setSearchBox(inputTitle);
-    }
-  };
+  // const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Enter") {
+  //     setSearchBox(inputTitle);
+  //   }
+  // };
 
-  const clearSearch = () => {
-    setInputTitle("");
-  };
+  // const clearSearch = () => {
+  //   setInputTitle("");
+  // };
 
   const filterProducts = data?.filter((product: any) =>
     product.title.toLowerCase().includes(inputTitle.toLowerCase())
   );
 
   const sortedProducts = [...(filterProducts || [])];
-  if(sortOption === "lowToHigh"){
-    sortedProducts.sort((a,b)=> a.price - b.price);
-  }else if(sortOption === "highToLow"){
-    sortedProducts.sort((a,b)=> b.price - a.price);
+  if (sortOption === "lowToHigh") {
+    sortedProducts.sort((a, b) => a.price - b.price);
+  } else if (sortOption === "highToLow") {
+    sortedProducts.sort((a, b) => b.price - a.price);
   }
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
 
   return (
-    <div>
+    <div className="mx-auto">
+      {/*      
       <div className="flex items-center justify-center">
-        {/* <div className="relative w-64">
+        <div className="relative w-64">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" />
           <Input
             placeholder="Search Products..."
@@ -82,10 +122,14 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
               ✕
             </button>
           )}
-        </div> */}
-      </div>
-        <div className="flex mt-4 ml-8 justify-center md:justify-start">
-          <Select onValueChange={(value)=>setSortOption(value)}>
+        </div>
+      </div> */}
+      <div className="flex justify-between mt-4">
+        <div className="flex items-center justify-center">
+          <BreadcrumbComponent />
+        </div>
+        <div className="">
+          <Select onValueChange={(value) => setSortOption(value)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Price Sorted By: " />
             </SelectTrigger>
@@ -95,8 +139,9 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
               <SelectItem value="highToLow">Highest to Lowest</SelectItem>
             </SelectContent>
           </Select>
-        </div> 
-        <div><BreadcrumbComponent/></div>
+        </div>
+      </div>
+
       <div className="flex flex-wrap justify-center md:flex-wrap gap-4 mt-4">
         {sortedProducts.map((product: any) => {
           const isFavorite = wishlist.some(
@@ -161,4 +206,4 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
   );
 };
 
-export default Products;
+export default CategoryList;
