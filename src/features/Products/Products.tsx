@@ -2,7 +2,6 @@ import { getCategories, getProductsByCategory } from "@/apis/CategoriesApi";
 import { getAllProducts } from "@/apis/ProductsApi";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import ProductDetailPage from "./ProductDetailPage";
 import { Heart, Scale } from "lucide-react";
 import { useWishlist } from "@/contexts/WishListContext";
 import { Search } from "lucide-react";
@@ -15,8 +14,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import BreadcrumbComponent from "@/components/BreadcrumbComponent";
+import { useNavigate } from "react-router-dom";
 
 const CategoryList: React.FC = () => {
+  const navigate = useNavigate();
   const { data: categoryData, isLoading } = useQuery({
     queryKey: ["category"],
     queryFn: () => getCategories(),
@@ -25,6 +26,11 @@ const CategoryList: React.FC = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
     1
   );
+
+  const handleCategoryClick = (category:any) => {
+    setSelectedCategoryId(category.id);
+    navigate(`/products/${category.name}`);
+  }
 
   if (isLoading) return <div>Loading categories...</div>;
 
@@ -41,7 +47,7 @@ const CategoryList: React.FC = () => {
                   selectedCategoryId === category.id ? "scale-110" : "scale-100"
                 }
                 `}
-              onClick={() => setSelectedCategoryId(category.id)}
+              onClick={() => handleCategoryClick(category)}
             />
             <div className=" text-xs mt-2">{category.name}</div>
           </div>
@@ -55,14 +61,11 @@ const CategoryList: React.FC = () => {
 };
 
 const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
-  const [open, setOpen] = useState(false);
-  const [selectedProductById, setSelectedProductById] = useState<number | null>(
-    null
-  );
   const { wishlist, addToWishlist, removeFavoriteItem } = useWishlist();
   const [inputTitle, setInputTitle] = useState<string>("");
   const [searchBox, setSearchBox] = useState<string>("");
   const [sortOption, setSortOption] = useState<string>("default");
+  const navigate = useNavigate();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["products", searchBox, categoryId],
@@ -180,12 +183,7 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
                 <p className="font-bold">${product.price}</p>
                 <button
                   className="px-2 rounded-xl text-sm border hover:bg-blue-400 cursor-pointer"
-                  onClick={() => {
-                    if (product.id !== undefined) {
-                      setSelectedProductById(product.id);
-                      setOpen(true);
-                    }
-                  }}
+                  onClick={() => navigate(`/products/${categoryId}/${product.id}`)}
                 >
                   View Details
                 </button>
@@ -193,14 +191,6 @@ const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
             </div>
           );
         })}
-
-        {selectedProductById !== null && (
-          <ProductDetailPage
-            open={open}
-            setOpen={setOpen}
-            productId={selectedProductById}
-          />
-        )}
       </div>
     </div>
   );

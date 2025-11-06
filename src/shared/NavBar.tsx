@@ -5,6 +5,7 @@ import {
   Heart,
   Menu,
   ShoppingCart,
+  UserRound,
   X,
 } from "lucide-react";
 import React, { useState } from "react";
@@ -36,16 +37,19 @@ const NavBar: React.FC = () => {
     <header className="top-0 sticky z-10 shadow-lg px-4 bg-neutral-50">
       <div className="flex justify-between items-center py-4">
         <div className="hidden md:flex gap-4">
-          <button onClick={()=>navigate("/") } className="cursor-pointer hover:text-secondary">Home</button>
+          <button
+            onClick={() => navigate("/")}
+            className="cursor-pointer hover:text-secondary"
+          >
+            Home
+          </button>
           <button
             onClick={() => {
               setSelectCategory(null);
-              navigate("/products")
+              navigate("/products");
             }}
             className={`cursor-pointer hover:text-secondary px-2 py-2 ${
-              selectCategory === null
-                ? "text-slate-900"
-                : "hover:bg-secondary"
+              selectCategory === null ? "text-slate-900" : "hover:bg-secondary"
             }`}
           >
             Shop
@@ -126,6 +130,12 @@ const NavBar: React.FC = () => {
               </span>
             )}
           </Link>
+          <Link
+          className={`p-2 rounded-lg cursor-pointer ${location.pathname.startsWith("/login") ? "bg-secondary" : "hover::bg-secondary"}` } 
+          to="/login"
+          >
+          <UserRound size={24} strokeWidth={1}/>
+          </Link>
         </div>
       </div>
 
@@ -148,6 +158,13 @@ const NavBar: React.FC = () => {
                 <span>
                   <ChevronRight size={16} strokeWidth={1} />
                 </span>
+              </button>
+
+              <button
+              className="flex items-center gap-2 cursor-pointer"
+              >
+                <UserRound size={16} strokeWidth={1}/>
+                <span>Login</span>
               </button>
             </div>
           )}
@@ -188,11 +205,17 @@ const NavBar: React.FC = () => {
                 <span>Back</span>
               </button>
               <h3 className="text-lg font-medium">{selectCategory.name}</h3>
-                {selectCategory.subcategories?.map((subcategory: any) => (
-                  <button key={subcategory.id} className="flex items-start cursor-pointer hover:text-primary">{subcategory.name}</button>
-                ))}
+              {selectCategory.subcategories?.map((subcategory: any) => (
+                <button
+                  key={subcategory.id}
+                  className="flex items-start cursor-pointer hover:text-primary"
+                >
+                  {subcategory.name}
+                </button>
+              ))}
             </div>
           )}
+
         </div>
       )}
     </header>

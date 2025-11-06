@@ -22,6 +22,7 @@ const HomePage: React.FC = () => {
     queryFn: () => getCategories(),
   });
 
+
   const newProducts = productData?.filter((p: any) => p.isNew === true);
   console.log("new products:", newProducts);
 
@@ -101,7 +102,7 @@ const HomePage: React.FC = () => {
                 {category.name}
               </h3>
               <h4 className="text-white text-lg">{category.description}</h4>
-              <button className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8" onClick={() => navigate("/products")}>SHOP NOW</button>
+              <button className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8" onClick={() =>navigate(`/products/${category.name}`)}>SHOP NOW</button>
             </div>
           </div>
         ))}
