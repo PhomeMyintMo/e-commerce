@@ -20,7 +20,8 @@ export const getProductsByCategory = async (categoryId: number) => {
 export const getProductDetailByCategory = async (categoryId: number, id: number) => {
      try{
         const result = await fetch(`http://localhost:5000/products?categoryId=${categoryId}&id=${id}`);
-        return result.json();
+        const data = await result.json();
+        return data[0];
     }catch(error){
         throw new Error("Failed to fetch product detail by category.");
     }

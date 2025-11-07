@@ -212,6 +212,12 @@
       "description": "Elegant silk blouse that pairs beautifully with skirts or trousers.",
       "categoryId": 1,
       "subcategoryId": 102,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 1,
         "name": "Top",
@@ -232,6 +238,12 @@
       "description": "Light and airy chiffon blouse with puff sleeves for a feminine touch.",
       "categoryId": 1,
       "subcategoryId": 103,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 1,
         "name": "Top",
@@ -252,6 +264,12 @@
       "description": "Trendy wide-leg jeans for a relaxed yet stylish vibe.",
       "categoryId": 2,
       "subcategoryId": 201,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 2,
         "name": "Bottom",
@@ -273,6 +291,12 @@
       "description": "Elegant pleated skirt that flows with every step.",
       "categoryId": 2,
       "subcategoryId": 202,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 2,
         "name": "Fashion",
@@ -294,6 +318,12 @@
       "description": "Breathable linen trousers ideal for warm weather.",
       "categoryId": 2,
       "subcategoryId": 203,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 2,
         "name": "Bottom",
@@ -314,6 +344,12 @@
       "description": "Flowy floral maxi dress for romantic summer outings.",
       "categoryId": 3,
       "subcategoryId": 301,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 3,
         "name": "Dresses",
@@ -335,6 +371,12 @@
       "description": "Chic and simple midi dress with a flattering silhouette.",
       "categoryId": 3,
       "subcategoryId": 303,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 3,
         "name": "Dresses",
@@ -355,6 +397,12 @@
       "description": "Laid-back boho dress with colorful floral patterns.",
       "categoryId": 3,
       "subcategoryId": 304,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 3,
         "name": "Dresses",
@@ -375,6 +423,12 @@
       "description": "Luxurious silk scarf with beautiful print designs.",
       "categoryId": 4,
       "subcategoryId": 401,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 4,
         "name": "Scarf",
@@ -396,6 +450,12 @@
       "description": "Soft cotton scarf ideal for daily use.",
       "categoryId": 4,
       "subcategoryId": 402,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 4,
         "name": "Scarf",
@@ -416,6 +476,12 @@
       "description": "Light striped scarf for casual layering.",
       "categoryId": 4,
       "subcategoryId": 403,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 4,
         "name": "Scarf",
@@ -436,6 +502,12 @@
       "description": "Sleek black heels for formal and evening occasions.",
       "categoryId": 5,
       "subcategoryId": 501,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 5,
         "name": "Shoes",
@@ -456,6 +528,12 @@
       "description": "Chic pointed flats for comfortable sophistication.",
       "categoryId": 5,
       "subcategoryId": 502,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 5,
         "name": "Shoes",
@@ -476,6 +554,12 @@
       "description": "Stylish ankle boots crafted from genuine leather.",
       "categoryId": 5,
       "subcategoryId": 503,
+       "size": ["S","M", "XL", "2XL"],
+      "colors": [
+        {"name": "Black", "hex": "#000000"},
+        {"name": "White", "hex": "#FFFFFF"},
+        {"name": "Grey", "hex": "#C0C0C0"}
+      ],
       "category": {
         "id": 5,
         "name": "Shoes",

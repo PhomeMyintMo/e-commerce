@@ -45,12 +45,9 @@ const NavBar: React.FC = () => {
           </button>
           <button
             onClick={() => {
-              setSelectCategory(null);
               navigate("/products");
             }}
-            className={`cursor-pointer hover:text-secondary px-2 py-2 ${
-              selectCategory === null ? "text-slate-900" : "hover:bg-secondary"
-            }`}
+            className={`cursor-pointer hover:text-secondary px-2 py-2`}
           >
             Shop
           </button>

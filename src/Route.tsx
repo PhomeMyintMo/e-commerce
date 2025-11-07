@@ -1,11 +1,12 @@
 import React from "react";
-import { useRoutes } from "react-router-dom";
+import { Outlet, useRoutes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import CartTable from "./features/Cart/CartTable";
 import WishlistPage from "./features/Wishlist/WishlistPage";
 import NotFoundPage from "./components/NotFoundPage";
 import HomePage from "./features/Home/HomePage";
 import Products from "./features/Products/Products";
+import CategoryDetailPage from "./features/Products/CategoryDetailPage";
 import ProductDetailPage from "./features/Products/ProductDetailPage";
 
 const Route: React.FC = () => {
@@ -22,27 +23,23 @@ const Route: React.FC = () => {
       path: "/products",
       element:(
         <MainLayout>
-          <Products/>
+          <Outlet/>
         </MainLayout>
       ),
       children: [
-
+        {
+          path: "/products",
+          element: <Products/>
+        },
         {
           path: "/products/:categoryId",
-          element: (
-            <MainLayout>
-              <Products/>
-            </MainLayout>
-          )
+          element:
+              <CategoryDetailPage/>
         },
         {
           path: "/products/:categoryId/:id",
-          element: (
-            <MainLayout>
-              <ProductDetailPage/>
-            </MainLayout>
-          )
-        },
+          element: <ProductDetailPage/>
+        }
       ]
     },
     {

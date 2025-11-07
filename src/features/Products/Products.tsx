@@ -1,8 +1,8 @@
-import { getCategories, getProductsByCategory } from "@/apis/CategoriesApi";
+import { getCategories} from "@/apis/CategoriesApi";
 import { getAllProducts } from "@/apis/ProductsApi";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { Heart, Scale } from "lucide-react";
+import { ArrowDown, Heart } from "lucide-react";
 import { useWishlist } from "@/contexts/WishListContext";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import BreadcrumbComponent from "@/components/BreadcrumbComponent";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CategoryList: React.FC = () => {
   const navigate = useNavigate();
@@ -23,57 +23,54 @@ const CategoryList: React.FC = () => {
     queryFn: () => getCategories(),
   });
 
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
-    1
-  );
+  // const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
 
-  const handleCategoryClick = (category:any) => {
-    setSelectedCategoryId(category.id);
-    navigate(`/products/${category.name}`);
-  }
+  // const handleCategoryClick = (category:any) => {
+  //   setSelectedCategoryId(category.id);
+  //   navigate(`/products/${category.name}`);
+  // }
 
   if (isLoading) return <div>Loading categories...</div>;
 
   return (
-    <div className="">
+    <div className="mx-auto p-4">
+      <div className="items-center justify-center p-2">
+      <div className="text-2xl font-medium mb-4">
+        All Products Uncategorized
+      </div>
+      <div className="flex gap-2 justify-center">Choose your favorite Categories here<span><ArrowDown/></span></div>
+      </div>
       <div className="flex gap-2 justify-center">
         {categoryData.map((category: any) => (
           <div key={category.id} className="">
             <img
               src={category.image}
               alt={category.name}
-              className={`w-24 h-24 border-2 object-cover transition-transform duration-500 hover:scale-110 cursor-pointer
-                ${
-                  selectedCategoryId === category.id ? "scale-110" : "scale-100"
-                }
-                `}
-              onClick={() => handleCategoryClick(category)}
+              className={`w-16 h-16 border-2 object-cover transition-transform duration-500 hover:scale-110 cursor-pointer`}
+              onClick={() => navigate(`/products/${category.id}`)}
             />
             <div className=" text-xs mt-2">{category.name}</div>
           </div>
         ))}
       </div>
       <div className="">
-        {selectedCategoryId && <Products categoryId={selectedCategoryId} />}
+        <Products />
       </div>
     </div>
   );
 };
 
-const Products: React.FC<{ categoryId: number | null }> = ({ categoryId }) => {
+const Products: React.FC = () => {
+    const {categoryId} = useParams<{categoryId: string}>();
   const { wishlist, addToWishlist, removeFavoriteItem } = useWishlist();
   const [inputTitle, setInputTitle] = useState<string>("");
-  const [searchBox, setSearchBox] = useState<string>("");
+  // const [searchBox, setSearchBox] = useState<string>("");
   const [sortOption, setSortOption] = useState<string>("default");
   const navigate = useNavigate();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["products", searchBox, categoryId],
-    queryFn: () =>
-      categoryId === null
-        ? getAllProducts(searchBox)
-        : getProductsByCategory(Number(categoryId)),
-    enabled: categoryId !== null,
+    queryKey: ["products"],
+    queryFn: () => getAllProducts()
   });
 
   // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
