@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllProducts } from "@/apis/ProductsApi";
 import type { ProductResponseType } from "../Products/type";
 import { getCategories } from "@/apis/CategoriesApi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -16,6 +16,7 @@ const HomePage: React.FC = () => {
     queryKey: ["products"],
     queryFn: () => getAllProducts(),
   });
+  const {categoryId} = useParams<{categoryId: string}>();
 
   const { data: categoryData } = useQuery({
     queryKey: ["category"],
@@ -68,7 +69,8 @@ const HomePage: React.FC = () => {
                 <img
                   src={product.images[0]}
                   alt={product.title}
-                  className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-full aspect-square object-cover  shadow-md"
+                  className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-full aspect-square object-cover transition-transform duration-500 hover:scale-110 shadow-md"
+                  onClick={()=> navigate(`/products/${product.categoryId}/${product.id}`)}
                 />
                 <h3 className="mt-2 font-medium text-sm sm:text-base md:text-lg">
                   {product.title}
@@ -102,7 +104,7 @@ const HomePage: React.FC = () => {
                 {category.name}
               </h3>
               <h4 className="text-white text-lg">{category.description}</h4>
-              <button className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8" onClick={() =>navigate(`/products/${category.name}`)}>SHOP NOW</button>
+              <button className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8" onClick={() =>navigate(`/products/${category.id}`)}>SHOP NOW</button>
             </div>
           </div>
         ))}

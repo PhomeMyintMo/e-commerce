@@ -10,7 +10,7 @@ quantity: number;
 
 interface CartContextType {
     cart: CartItem[],
-    addToCart: (item: Omit<CartItem, "quantity">) => void;
+    addToCart: (item: CartItem) => void;
     decreaseCartItem : (id: number) => void;
     removeCartItem: (id: number) => void;
     clearCart: ()=> void;
@@ -28,7 +28,7 @@ export const CartProvider : React.FC<React.PropsWithChildren<{}>> = ({children})
         localStorage.setItem('cart', JSON.stringify(cart));
     }, [cart])
 
-    const addToCart = (item: Omit<CartItem, "quantity">) => {
+    const addToCart = (item: CartItem) => {
         setCart((prev) => {
             const existing = prev.find((p) => p.id === item.id);
             if(existing){

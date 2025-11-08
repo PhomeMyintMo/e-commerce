@@ -140,9 +140,9 @@ const NavBar: React.FC = () => {
         <div className="md:hidden flex flex-col gap-4 px-4 pb-4 items-center bg-blue-50 rounded-b-lg shadow-inner">
           {menuLevel === "main" && (
             <div className="flex flex-col gap-4 mt-2 w-full items-start">
-              <button>Home</button>
+              <button onClick={()=> navigate("/")}>Home</button>
 
-              <button>Shop</button>
+              <button onClick={() => navigate("/products")}>Shop</button>
 
               <button
                 className="flex items-center  gap-2 cursor-pointer"

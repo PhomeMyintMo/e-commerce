@@ -21,9 +21,20 @@ const ProductDetailPage: React.FC = () => {
       ? data?.description.slice(0, 100) + "..."
       : data?.description;
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { cart, addToCart, decreaseCartItem } = useCart();
+  const { cart, addToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
 
-  const item = cart.find((cartItem) => cartItem.id === data?.id);
+  useEffect(() => {
+    if(data){
+      const existing = cart.find((cartItem) => cartItem.id === data?.id);
+      setQuantity(existing?.quantity || 1);
+    }
+  }, [data, cart]);
+
+  const increaseQuantity = () => setQuantity((q)=> q + 1);
+  const decreaseQuantity = () => setQuantity((q) => Math.max(1, q-1));
+
+  // const item = cart.find((cartItem) => cartItem.id === data?.id);
 
   useEffect(() => {
     if (data?.images && data?.images.length > 0) {
@@ -68,28 +79,22 @@ const ProductDetailPage: React.FC = () => {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => decreaseCartItem(data?.id)}
-                disabled={!item || item.quantity <= 1}
+                onClick={decreaseQuantity}
+                disabled={quantity <= 1}
               >
                 <Minus className="h-4 w-4" />
               </Button>
               <Input
                 type="number"
-                value={item?.quantity || 0}
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, Number(e.target.value) || 1))}
                 className="h-8 w-16 text-center"
-                readOnly
+                
               />
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() =>
-                  addToCart({
-                    id: data?.id,
-                    title: data?.title,
-                    price: data?.price,
-                    image: data?.image,
-                  })
-                }
+                onClick={increaseQuantity}
               >
                 <Plus className="h-4 w-4" />
               </Button>
@@ -102,6 +107,7 @@ const ProductDetailPage: React.FC = () => {
                   title: data?.title,
                   price: data?.price,
                   image: data?.images?.[0],
+                  quantity, 
                 })
               }
             >
