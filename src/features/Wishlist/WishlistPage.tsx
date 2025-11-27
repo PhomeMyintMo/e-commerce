@@ -4,39 +4,40 @@ import { ArrowLeft, Heart } from 'lucide-react';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const WishlistPage : React.FC = () => {
-  const {wishlist, removeFavoriteItem} = useWishlist();
+const WishlistPage: React.FC = () => {
+  const { wishlist, removeFavoriteItem } = useWishlist();
   const navigate = useNavigate();
   return (
-    <div>
-      <Button className="cursor-pointer bg-slate-200 px-2 hover:bg-slate-300 flex items-start ms-8" onClick={()=> navigate("/")}><ArrowLeft className="text-black" /></Button>
-        {wishlist.length > 0 ? (
-          <div className='flex flex-wrap items-center justify-center md:flex-wrap gap-4 mt-4 p-4'>
-            {wishlist.map((wishlist: any)=> (
-              <div key={wishlist.id} className='border rounded p-2 w-80'>
-                <div className='relative'>
-                  <img
+    <div className='p-4'>
+      <div className='flex'><Button className="cursor-pointer bg-slate-400 px-4 hover:bg-slate-300 " onClick={() => navigate(-1)}><ArrowLeft className="text-black" /></Button></div>
+      <h1 className="font-semibold text-3xl mb-8 flex justify-center items-center">Your Favorites</h1>
+      {wishlist.length > 0 ? (
+        <div className='flex flex-wrap items-center justify-center md:flex-wrap gap-4 mt-4 p-4'>
+          {wishlist.map((wishlist: any) => (
+            <div key={wishlist.id} className='border rounded p-2 w-80'>
+              <div className='relative'>
+                <img
                   src={wishlist.image}
                   alt={wishlist.title}
                   className='h-full w-full object-cover rounded'
-                  />
-                  <button onClick={()=> removeFavoriteItem(wishlist.id)}>
+                />
+                <button onClick={() => removeFavoriteItem(wishlist.id)}>
                   <Heart className='absolute right-2 bottom-8 transition-colors duration-200 stroke-1'
-                  fill="red" 
-                  color='red'
+                    fill="red"
+                    color='red'
                   />
                 </button>
-                </div>
-                <p className="mt-2 text-sm font-medium">{wishlist.title}</p>
-                <p className="text-gray-500">${wishlist.price}</p>
-                </div>
-            ))}
-          </div>
-        ) : (
-          <div>
-            0 items in your wish list.
-          </div>
-        )}
+              </div>
+              <p className="mt-2 text-sm font-medium">{wishlist.title}</p>
+              <p className="text-gray-500">${wishlist.price}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className='items-center flex justify-center'>
+          0 items in your wish list.
+        </div>
+      )}
     </div>
   )
 }

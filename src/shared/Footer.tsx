@@ -4,7 +4,7 @@ import { FaGithub } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
-    <div className='mt-4  bottom-0'>
+    <div className=''>
     <Separator/>
       <div className='flex p-4 uppercase justify-center'>
         	copyright{" "}&copy;{new Date().getFullYear()} - <a href='https://github.com/PhomeMyintMo' className='cursor-pointer hover:font-semibold'>Phome Myint Mo</a><span className='flex items-center px-2'><FaGithub/></span>, all rights reserved.

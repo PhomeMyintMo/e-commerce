@@ -2,7 +2,6 @@ import { getCategories } from '@/apis/CategoriesApi'
 import Products from '@/features/Products/Products';
 import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
-import femmestyle from '../assets/femmestyle.mp4';
 
 const Header: React.FC = () => {
   const [selectCategory, setSelectCategory] = useState<number | null>(null);
@@ -57,7 +56,7 @@ const Header: React.FC = () => {
       />
     </div> */}
 
-    <Products categoryId={selectCategory} />
+    {/* <Products categoryId={selectCategory} /> */}
   </div>
   </>
   )

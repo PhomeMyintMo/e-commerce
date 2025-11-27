@@ -6,7 +6,7 @@ import BreadcrumbComponent from "@/components/BreadcrumbComponent";
 import { useWishlist } from "@/contexts/WishListContext";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import {  useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Select,
   SelectContent,
@@ -17,7 +17,7 @@ import {
 import { Heart } from "lucide-react";
 
 const CategoryDetailPage: React.FC = () => {
-  const { categoryId} = useParams<{ categoryId: string}>();
+  const { categoryId } = useParams<{ categoryId: string }>();
   const { wishlist, addToWishlist, removeFavoriteItem } = useWishlist();
   const [sortOption, setSortOption] = useState<string>("default");
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const CategoryDetailPage: React.FC = () => {
   });
 
   const filterCategory = categoryData.find(
-    (category: any) => category.id === categoryId
+    (category: any) => category.id === Number(categoryId)
   );
   if (!filterCategory) return <div>No category data found.</div>;
 
@@ -90,42 +90,48 @@ const CategoryDetailPage: React.FC = () => {
           );
           return (
             <div key={product.id} className="border rounded p-2 w-80">
-              <div className="relative">
+              <div className="">
                 <img
                   src={product.images?.[0] || "https://placehold.co/600x400"}
                   alt={product.title}
-                  className="h-full w-full object-cover rounded"
+                  className="h-full w-full object-cover rounded cursor-pointer"
+                  onClick={() => navigate(`/products/${categoryId}/${product.id}`)}
                 />
+              </div>
+              <div className="flex justify-between mt-4">
+                <p className="font-semibold">{product.title}</p>
                 <button
                   onClick={() =>
                     isFavorite
                       ? removeFavoriteItem(product.id)
                       : addToWishlist({
-                          id: product.id,
-                          title: product.title,
-                          price: product.price,
-                          image: product.images?.[0],
-                        })
+                        id: product.id,
+                        title: product.title,
+                        price: product.price,
+                        image: product.images?.[0],
+                      })
                   }
                 >
                   <Heart
-                    className="absolute right-2 bottom-8 stroke-1"
+                    className="right-2 bottom-8 stroke-1 text-gray-500 cursor-pointer hover:fill-red-500 hover:text-gray-500"
                     fill={isFavorite ? "red" : "none"}
-                    color={isFavorite ? "red" : "currentColor"}
+                    color={isFavorite ? "red" : "currentColor"} 
                   />
                 </button>
               </div>
-                     <p className="font-semibold">{product.title}</p>
-              <p className="text-gray-400 text-sm">{product.category.name}</p>
               <div className="flex justify-between items-center mt-2 mb-2">
-                <p className="font-bold">${product.price}</p>
-                <button
-                  className="px-2 rounded-xl text-sm border hover:bg-blue-400 cursor-pointer"
-                  onClick={() => navigate(`/products/${categoryId}/${product.id}`)}
-                >
-                  View Details
-                </button>
+                <p className="text-gray-500">${product.price}</p>
               </div>
+              <div className="flex gap-2">
+                {product?.colors?.map((color: any, index: number) => (
+                  <span
+                    key={index}
+                    style={{ backgroundColor: color.hex }}
+                    className="w-6 h-6 rounded-full inline-block border border-gray-300"
+                  ></span>
+                ))}
+              </div>
+
             </div>
           );
         })}

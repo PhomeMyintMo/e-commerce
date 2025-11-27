@@ -33,10 +33,10 @@ const CartTable: React.FC = () => {
 
   return (
     <div className="p-4">
-      <div className="flex flex-row gap-8">
-      <Button className="cursor-pointer bg-slate-200 px-2 hover:bg-slate-300" onClick={()=> navigate("/")}><ArrowLeft className="text-black" /></Button>
-      <h1 className="font-bold text-2xl mb-4">Your Cart</h1>
+      <div className="flex">
+      <Button className="cursor-pointer bg-slate-400 hover:bg-slate-300" onClick={()=> navigate(-1)}><ArrowLeft className="text-black" /></Button>
       </div>
+      <h1 className="font-semibold text-3xl mb-8 flex justify-center items-center">Your Cart</h1>
       <div className="flex flex-col md:flex-row gap-4">
         {cart.length > 0 ? (
         <div className="flex-1 overflow-x-auto md:overflow-visible">
@@ -124,15 +124,15 @@ const CartTable: React.FC = () => {
           </Table>
         </div>
         ): (
-          <div className="">
+          <div className="flex flex-col items-center justify-center flex-1">
             <h1 className="font-medium text-lg">Your cart is empty.</h1>
-            <p className="text-sm py-4">Go back to product page and add items to the cart.</p>
+            <p className="text-sm py-4">Go back to <span className="font-semibold underline underline-offset-2 text-blue-500 cursor-pointer hover:scale-110" onClick={()=>navigate("/products")}>product page</span>  and add items to the cart.</p>
             </div>
         )}
 
 
-        <div className="w-full lg:w-1/4 md:w-1/3 text-white">
-          <div className="bg-slate-500 rounded-xl py-4">
+        <div className="w-full lg:w-1/4 md:w-1/3 text-">
+          <div className="bg-gray-300 rounded-xl py-4">
             <h2 className="font-semibold mb-4">Order Summary</h2>
             <Separator />
             <div>
