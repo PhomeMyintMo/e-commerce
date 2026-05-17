@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import BreadcrumbComponent from "@/components/BreadcrumbComponent";
 import { useNavigate, useParams } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const CategoryList: React.FC = () => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const CategoryList: React.FC = () => {
             <img
               src={category.image}
               alt={category.name}
-              className={`w-16 h-16 border-2 object-cover transition-transform duration-500 hover:scale-110 cursor-pointer`}
+              className={`w-16 h-16 object-cover transition-transform duration-500 hover:scale-110 cursor-pointer`}
               onClick={() => navigate(`/products/${category.id}`)}
             />
             <div className=" text-xs mt-2">{category.name}</div>
@@ -87,110 +88,157 @@ const Products: React.FC = () => {
   //   setInputTitle("");
   // };
 
-  const filterProducts = data?.filter((product: any) =>
-    product.title.toLowerCase().includes(inputTitle.toLowerCase())
-  );
+  // const filterProducts = data?.filter((product: any) =>
+  //   product.title.toLowerCase().includes(inputTitle.toLowerCase())
+  // );
 
-  const sortedProducts = [...(filterProducts || [])];
-  if (sortOption === "lowToHigh") {
-    sortedProducts.sort((a, b) => a.price - b.price);
-  } else if (sortOption === "highToLow") {
-    sortedProducts.sort((a, b) => b.price - a.price);
-  }
+  // const sortedProducts = [...(filterProducts || [])];
+  // if (sortOption === "lowToHigh") {
+  //   sortedProducts.sort((a, b) => a.price - b.price);
+  // } else if (sortOption === "highToLow") {
+  //   sortedProducts.sort((a, b) => b.price - a.price);
+  // }
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
 
   return (
-    <div className="mx-auto">
-      {/*      
-      <div className="flex items-center justify-center">
-        <div className="relative w-64">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4" />
-          <Input
-            placeholder="Search Products..."
-            className="pl-10"
-            value={inputTitle}
-            onChange={handleSearchChange}
-            onKeyDown={handleSearch}
-          />
-          {inputTitle && (
-            <button
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 "
-              onClick={clearSearch}
-            >
-              ✕
-            </button>
-          )}
-        </div>
-      </div> */}
-      <div className="flex justify-between mt-4">
-        <div className="flex items-center justify-center">
-          <BreadcrumbComponent />
-        </div>
-        <div className="">
-          <Select onValueChange={(value) => setSortOption(value)}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Price Sorted By: " />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="default">Default</SelectItem>
-              <SelectItem value="lowToHigh">Lowest to Highest</SelectItem>
-              <SelectItem value="highToLow">Highest to Lowest</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+  <div className="mx-auto px-4 py-6">
+    <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div className="flex items-center">
+        <BreadcrumbComponent />
       </div>
 
-      <div className="flex flex-wrap justify-center md:flex-wrap gap-4 mt-4">
-        {sortedProducts.map((product: any) => {
-          const isFavorite = wishlist.some(
-            (item: any) => item.id === product.id
-          );
-          return (
-            <div key={product.id} className="border rounded p-2 w-80">
-              <div className="relative">
-                <img
-                  src={product.images?.[0] || "https://placehold.co/600x400"}
-                  alt={product.title}
-                  className="h-full w-full object-cover rounded"
-                />
-                <button
-                  onClick={() =>
-                    isFavorite
-                      ? removeFavoriteItem(product.id)
-                      : addToWishlist({
-                          id: product.id,
-                          title: product.title,
-                          price: product.price,
-                          image: product.images?.[0],
-                        })
-                  }
-                >
-                  <Heart
-                    className="absolute right-2 bottom-8 stroke-1"
-                    fill={isFavorite ? "red" : "none"}
-                    color={isFavorite ? "red" : "currentColor"}
-                  />
-                </button>
-              </div>
-              <p className="font-semibold">{product.title}</p>
-              <p className="text-gray-400 text-sm">{product.category.name}</p>
-              <div className="flex justify-between items-center mt-2 mb-2">
-                <p className="font-bold">${product.price}</p>
-                <button
-                  className="px-2 rounded-xl text-sm border hover:bg-blue-400 cursor-pointer"
-                  onClick={() => navigate(`/products/${categoryId}/${product.id}`)}
-                >
-                  View Details
-                </button>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+      <Select onValueChange={(value) => setSortOption(value)}>
+        <SelectTrigger className="w-full md:w-[220px] rounded-xl border-gray-300 shadow-sm">
+          <SelectValue placeholder="Sort by Price" />
+        </SelectTrigger>
+
+        <SelectContent>
+          <SelectItem value="default">Default</SelectItem>
+          <SelectItem value="lowToHigh">Lowest to Highest</SelectItem>
+          <SelectItem value="highToLow">Highest to Lowest</SelectItem>
+        </SelectContent>
+      </Select>
     </div>
-  );
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
+      {data.map((product: any) => {
+        const isFavorite = wishlist.some(
+          (item: any) => item.id === product.id
+        );
+
+        return (
+          <div
+            key={product.id}
+            className="group bg-white rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300"
+          >
+            <div 
+            className="relative bg-gray-100 aspect-[4/5] overflow-hidden cursor-pointer"
+            onClick={() => navigate(`/products/${product.id}`)}
+            >
+              {product.images?.[0]?.url ? (
+                <img
+                  src={product.images[0].url}
+                  alt={product.name}
+                  className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              ) : (
+                <div className="flex items-center justify-center h-full w-full bg-gradient-to-br from-gray-100 to-gray-200">
+                  <span className="text-gray-400 text-sm">
+                    No Image Available
+                  </span>
+                </div>
+              )}
+
+              {/* Wishlist Button */}
+              <button
+                onClick={() =>
+                  isFavorite
+                    ? removeFavoriteItem(product.id)
+                    : addToWishlist({
+                        id: product.id,
+                        title: product.name,
+                        price: product.price,
+                        image: product.images?.[0],
+                      })
+                }
+                className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md hover:scale-110 transition"
+              >
+                <Heart
+                  className="h-5 w-5"
+                  fill={isFavorite ? "red" : "none"}
+                  color={isFavorite ? "red" : "#444"}
+                />
+              </button>
+
+              {product.stock === 0 && (
+                <div className="absolute top-3 left-3 bg-background text-foreground/70 text-xs px-3 py-1 rounded-full font-medium">
+                  Out of Stock
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col items-start gap-3 p-4">
+              <p className="text-xs uppercase tracking-wide text-gray-400">
+                {product.category?.name}
+              </p>
+
+              <h2 className="font-semibold text-gray-800 line-clamp-2">
+                {product.name}
+              </h2>
+
+              <div className="flex items-center gap-2">
+                <span className="text-lg font-semibold text-muted-foreground">
+                  Ks{" "}{product.price.toLocaleString()}
+                </span>
+              </div>
+
+              {product.variants?.length > 0 && (
+                <div className="flex items-center gap-2 mt-1">
+                  {[
+                    ...new Set(
+                      product.variants.map(
+                        (variant: any) => variant.color
+                      )
+                    ),
+                  ].map((color: any, index: number) => (
+                    <div
+                      key={index}
+                      className="h-5 w-5 rounded-full border"
+                      style={{ backgroundColor: color }}
+                      title={color}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* {product.variants?.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {[
+                    ...new Set(
+                      product.variants.map(
+                        (variant: any) => variant.size
+                      )
+                    ),
+                  ].map((size: any, index: number) => (
+                    <span
+                      key={index}
+                      className="px-2 py-1 text-xs rounded-md bg-gray-100 text-gray-700"
+                    >
+                      {size}
+                    </span>
+                  ))}
+                </div>
+              )} */}
+
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+);
 };
 
 export default CategoryList;

@@ -35,8 +35,9 @@ const CategoryDetailPage: React.FC = () => {
   });
 
   const filterCategory = categoryData.find(
-    (category: any) => category.id === Number(categoryId)
+    (category: any) => category.id=== Number(categoryId)
   );
+  console.log("category id:", typeof(categoryData[0].id))
   if (!filterCategory) return <div>No category data found.</div>;
 
   const filterProducts = productDetailData?.filter((product: any) =>

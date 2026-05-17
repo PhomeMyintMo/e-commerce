@@ -1,19 +1,33 @@
-
 export const getAllProducts = async () => {
-    try{
-        const result = await fetch(`http://localhost:5000/products`);
-        console.log("products:", result);
-        return result.json();
-    }catch(error){
-        throw new Error("Failed to fetch products.");
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/products`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch products.");
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
-}
+};
 
 export const getProductDetail = async (productId: number) => {
-    try{
-        const result = await fetch(`http://localhost:5000/products/${productId}`);
-        return result.json();
-    }catch(error){
-        throw new Error("Failed to fetch product detail.");
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/products/${productId}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch product detail.");
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
-}
+};

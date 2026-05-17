@@ -37,7 +37,7 @@ const Route: React.FC = () => {
               <CategoryDetailPage/>
         },
         {
-          path: "/products/:categoryId/:id",
+          path: "/products/:id",
           element: <ProductDetailPage/>
         }
       ]

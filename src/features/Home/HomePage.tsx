@@ -25,7 +25,6 @@ const HomePage: React.FC = () => {
 
 
   const newProducts = productData?.filter((p: any) => p.isNew === true);
-  console.log("new products:", newProducts);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
