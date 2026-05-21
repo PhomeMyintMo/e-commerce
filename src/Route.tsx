@@ -31,15 +31,16 @@ const Route: React.FC = () => {
           path: "/products",
           element: <Products/>
         },
-        {
-          path: "/products/:categoryId",
-          element:
-              <CategoryDetailPage/>
-        },
-        {
+         {
           path: "/products/:id",
           element: <ProductDetailPage/>
-        }
+        },
+        // {
+        //   path: "/products/:categoryId",
+        //   element:
+        //       <CategoryDetailPage/>
+        // },
+       
       ]
     },
     {

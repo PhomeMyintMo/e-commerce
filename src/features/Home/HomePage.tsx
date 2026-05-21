@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import femmestyle from "../../assets/femmestyle.mp4";
 import { useQuery } from "@tanstack/react-query";
 import { getAllProducts } from "@/apis/ProductsApi";
-import type { ProductResponseType } from "../Products/type";
 import { getCategories } from "@/apis/CategoriesApi";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { isNewProduct } from "@/lib/helper";
+import { ProductCard } from "@/components/ProductCard";
+import { useWishlist } from "@/contexts/WishListContext";
 
 const HomePage: React.FC = () => {
+  const { wishlist, addToWishlist, removeFavoriteItem } = useWishlist();
+
   const navigate = useNavigate();
   const {
     data: productData,
     isLoading,
     isError,
-  } = useQuery<ProductResponseType>({
+  } = useQuery({
     queryKey: ["products"],
     queryFn: () => getAllProducts(),
   });
-  const {categoryId} = useParams<{categoryId: string}>();
 
   const { data: categoryData } = useQuery({
     queryKey: ["category"],
@@ -24,7 +27,10 @@ const HomePage: React.FC = () => {
   });
 
 
-  const newProducts = productData?.filter((p: any) => p.isNew === true);
+  const newProducts = productData?.filter((p: any) => {
+    const result = isNewProduct(p.createdAt);
+    return result;
+  });
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
@@ -53,32 +59,28 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* new products */}
-        <div className="px-4 sm:px-8 md:px-16 lg:px-32 mt-16 mb-16">
-          <div className="mb-8 text-center md:text-left">
-            <h2 className="text-2xl md:text-3xl font-semibold">New Products</h2>
-            <h4 className="text-gray-600">The latest looks, created with passion.</h4>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-8">
-            {newProducts?.map((product: any) => (
-              <div
-                key={product.id}
-                className="flex flex-col items-center text-center hover:scale-105 transition-transform cursor-pointer"
-              > 
-                <img
-                  src={product.images[0]}
-                  alt={product.title}
-                  className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-full aspect-square object-cover transition-transform duration-500 hover:scale-110 shadow-md"
-                  onClick={()=> navigate(`/products/${product.categoryId}/${product.id}`)}
-                />
-                <h3 className="mt-2 font-medium text-sm sm:text-base md:text-lg">
-                  {product.title}
-                </h3>
-              </div>
-            ))}
-            
-          </div>
+      <div className="px-4 sm:px-8 md:px-16 lg:px-32 mt-16 mb-16">
+        <div className="mb-8 text-center md:text-left">
+          <h2 className="text-2xl md:text-3xl font-semibold">New Products</h2>
+          <h4 className="text-gray-600">The latest looks, created with passion.</h4>
         </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-8">
+          {newProducts?.map((product: any) => {
+            return (
+              <ProductCard
+                key={product.id}
+                product={product}
+                wishlist={wishlist}
+                addToWishlist={addToWishlist}
+                removeFavoriteItem={removeFavoriteItem}
+                navigate={navigate}
+              />
+            )
+          })}
+
+        </div>
+      </div>
 
 
       {/* category */}
@@ -103,13 +105,12 @@ const HomePage: React.FC = () => {
                 {category.name}
               </h3>
               <h4 className="text-white text-lg">{category.description}</h4>
-              <button className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8" onClick={() =>navigate(`/products/${category.id}`)}>SHOP NOW</button>
+              <button className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8" onClick={() => navigate(`/products/${category.id}`)}>SHOP NOW</button>
             </div>
           </div>
         ))}
       </div>
 
-      {/* <Products categoryId={selectCategory} /> */}
     </div>
   );
 };

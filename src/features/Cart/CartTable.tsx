@@ -1,19 +1,10 @@
 import React from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { useCart } from "@/contexts/CartContext";
 import { Input } from "@/components/ui/input";
-import { Minus, Plus, Trash2 } from "lucide-react";
+import { ChevronLeft, Minus, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 
 
@@ -27,132 +18,147 @@ const CartTable: React.FC = () => {
 
   const Total = SubTotalAmount + shippingFee;
 
-  const {toast} = useToast();
+  const { toast } = useToast();
 
   const navigate = useNavigate();
 
   return (
-    <div className="p-4">
-      <div className="flex">
-      <Button className="cursor-pointer bg-slate-400 hover:bg-slate-300" onClick={()=> navigate(-1)}><ArrowLeft className="text-black" /></Button>
-      </div>
+    <div className="p-4 space-y-3">
       <h1 className="font-semibold text-3xl mb-8 flex justify-center items-center">Your Cart</h1>
       <div className="flex flex-col md:flex-row gap-4">
         {cart.length > 0 ? (
-        <div className="flex-1 overflow-x-auto md:overflow-visible">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>No</TableHead>
-                <TableHead>Item</TableHead>
-                <TableHead></TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead>Quality</TableHead>
-                <TableHead>Total</TableHead>
-                <TableHead></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {cart.map((item, index) => (
-                <TableRow key={item.id}>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-16 h-16 object-cover rounded-xl"
-                    />
-                  </TableCell>
-                  <TableCell>{item.title}</TableCell>
-                  <TableCell>
-                    <span className="font-bold">$</span>
-                    {item.price}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-2">
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() => decreaseCartItem(item.id)}
-                        disabled={item.quantity <= 1}
-                      >
-                        <Minus className="h-4 w-4" />
-                      </Button>
-                      <Input
-                        type="number"
-                        value={item.quantity}
-                        className="h-8 w-16 text-center"
-                        readOnly
-                      />
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() =>
-                          addToCart({
-                            id: item.id,
-                            title: item.title,
-                            price: item.price,
-                            image: item.image,
-                            quantity: item.quantity,
-                          })
-                        }
-                      >
-                        <Plus className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span className="font-bold">$</span>
-                    {item.price * item.quantity}
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="ghost"
-                      onClick={() => {
-                        removeCartItem(item.id);
+          <div className="flex-1 space-y-4">
+            <button className="flex cursor-pointer items-center gap-2" onClick={() => navigate("/products")}><ChevronLeft size={18} />Continue Shopping</button>
 
-                      }}
-                      className="cursor-pointer"
-                    >
-                      <Trash2 className="w-5 h-5 text-red-500" />
-                    </Button>
+            {cart.map((item, index) => (
+              <div
+                key={item.id}
+                className="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-b p-4"
+              >
+                <div className="flex items-center gap-4 w-full md:w-auto">
+                  <span className="font-semibold">{index + 1}</span>
 
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-        ): (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-24 h-24 object-cover shrink-0"
+                  />
+
+                  <div className="flex items-start flex-col">
+                    <h2 className="font-semibold text-lg">{item.title}</h2>
+                    <div className="font-semibold text-muted-foreground">Ks{" "}{item.price}</div>
+                    <div className="text-sm">Color: {item.color ?? "-"}</div>
+                    <div className="text-sm">Size: {item.size ?? "-"}</div>
+                  </div>
+                </div>
+
+                {/* Quantity Controls */}
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => decreaseCartItem(item.id)}
+                    disabled={item.quantity <= 1}
+                  >
+                    <Minus className="h-4 w-4" />
+                  </Button>
+
+                  <Input
+                    type="number"
+                    value={item.quantity}
+                    className="h-8 w-16 text-center"
+                    readOnly
+                  />
+
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() =>
+                      addToCart({
+                        id: item.id,
+                        title: item.title,
+                        price: item.price,
+                        image: item.image,
+                        color: item.color,
+                        size: item.size,
+                        quantity: item.quantity,
+                      })
+                    }
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+
+                <p className="text-muted-foreground">
+                  Total:{" "}
+                  <span className="font-semibold">
+                    Ks{" "}{item.price * item.quantity}
+                  </span>
+                </p>
+
+                <Button
+                  variant="ghost"
+                  onClick={() => removeCartItem(item.id)}
+                  className="cursor-pointer"
+                >
+                  <Trash2 className="w-5 h-5 text-red-500" />
+                </Button>
+              </div>
+            ))}
+          </div>
+        ) : (
           <div className="flex flex-col items-center justify-center flex-1">
             <h1 className="font-medium text-lg">Your cart is empty.</h1>
-            <p className="text-sm py-4">Go back to <span className="font-semibold underline underline-offset-2 text-blue-500 cursor-pointer hover:scale-110" onClick={()=>navigate("/products")}>product page</span>  and add items to the cart.</p>
-            </div>
+            <p className="text-sm py-4">Go back to <span className="font-semibold underline underline-offset-2 text-blue-500 cursor-pointer hover:scale-110" onClick={() => navigate("/products")}>product page</span>  and add items to the cart.</p>
+          </div>
         )}
 
 
-        <div className="w-full lg:w-1/4 md:w-1/3 text-">
-          <div className="bg-gray-300 rounded-xl py-4">
-            <h2 className="font-semibold mb-4">Order Summary</h2>
-            <Separator />
-            <div>
-              Total : <span className="font-semibold">$</span>
-              {SubTotalAmount}
+        <div className="w-full lg:w-1/4 md:w-1/3">
+          <div className="rounded-2xl border bg-card shadow-sm p-6 sticky top-4">
+
+            <h2 className="text-xl font-bold mb-4">Order Summary</h2>
+
+            <Separator className="mb-4" />
+
+            <div className="space-y-4 text-sm">
+              <div className="flex items-center justify-between">
+                <span className="text-muted-foreground">Total</span>
+                <span className="font-semibold">
+                  MMK {SubTotalAmount}
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <span className="text-muted-foreground">Shipping Fee</span>
+                <span className="font-medium">
+                  MMK {shippingFee}
+                </span>
+              </div>
+
+              <Separator />
+
+              <div className="flex items-center justify-between text-base">
+                <span className="font-semibold">Subtotal</span>
+                <span className="text-lg font-bold">
+                  MMK {Total}
+                </span>
+              </div>
             </div>
-            <div>
-              Shipping Fee : <span className="font-semibold">$</span>{shippingFee}
-            </div>
-            <div>
-              Subtotal : <span className="font-semibold">$</span>
-              {Total}
-            </div>
-            <Button className="mt-4 cursor-pointer bg-blue-600" onClick={() => toast({
-                "title" : "CheckOut",
-                "description" : "Checkout successfully.",
-                variant: "default"
-            })}
-            disabled ={Total <= 0}
-            >CheckOut</Button>
+
+            <Button
+              className="w-full mt-6 h-11 rounded-xl cursor-pointer"
+              onClick={() =>
+                toast({
+                  title: "Checkout",
+                  description: "Checkout successfully.",
+                  variant: "default",
+                })
+              }
+              disabled={Total <= 0}
+            >
+              Check Out
+            </Button>
           </div>
         </div>
       </div>

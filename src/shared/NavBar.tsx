@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { getCategories } from "@/apis/CategoriesApi";
 import { useQuery } from "@tanstack/react-query";
+import { getSubCategories } from "@/apis/SubCategoriesApi";
 
 const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +26,12 @@ const NavBar: React.FC = () => {
   >("main");
   const navigate = useNavigate();
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data: subCategoriesData, isLoading, isError, error } = useQuery({
+    queryKey: ["sub-categories"],
+    queryFn: () => getSubCategories(),
+  });
+
+  const { data: categoriesData } = useQuery({
     queryKey: ["categories"],
     queryFn: () => getCategories(),
   });
@@ -37,24 +43,29 @@ const NavBar: React.FC = () => {
     <header className="top-0 sticky z-10 shadow-lg px-4 bg-neutral-50">
       <div className="flex justify-between items-center py-4">
         <div className="hidden md:flex gap-4">
-          <button
-            onClick={() => navigate("/")}
-            className="cursor-pointer hover:text-secondary"
+          <Link
+            to="/"
+            className={`px-4 py-2 transition-colors duration-200 border-b-2
+    ${location.pathname === "/"
+                ? "border-black text-black font-semibold"
+                : "border-transparent text-gray-500 hover:text-black hover:border-gray-300"
+              }`}
           >
             Home
-          </button>
-          <button
-            onClick={() => {
-              navigate("/products");
-            }}
-            className={`cursor-pointer hover:text-secondary px-2 py-2`}
+          </Link>
+          <Link
+            to="/products"
+            className={`px-4 py-2 transition-colors duration-200 border-b-2
+    ${location.pathname.startsWith("/products")
+                ? "border-black text-black font-semibold"
+                : "border-transparent text-gray-500 hover:text-black hover:border-gray-300"
+              }`}
           >
             Shop
-          </button>
+          </Link>
 
           <div className="relative group inline-block">
-            {/* Parent button */}
-            <button className="flex items-center gap-1 py-2 cursor-pointer hover:text-secondary">
+            <button className="flex items-center gap-1 py-2 cursor-pointer hover:text-black font-semi-bold text-gray-500">
               Products
               <span className="text-xs bg-slate-400 rounded px-2 py-0.5">
                 Categories
@@ -62,24 +73,52 @@ const NavBar: React.FC = () => {
             </button>
 
             {/* Dropdown (mega menu) */}
-            <div className="absolute left-0 mt-2 bg-white border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out z-50 w-[700px] p-6">
-              <div className="grid grid-cols-3 gap-8">
-                {data?.map((category: any) => (
-                  <div key={category.id}>
-                    <h3 className="font-semibold text-gray-800 mb-2">
-                      {category.name}
-                    </h3>
-                    <ul className="space-y-1">
-                      {category.subcategories?.map((sub: any) => (
-                        <li key={sub.id}>
-                          <button className="text-sm text-gray-600 hover:text-primary transition">
-                            {sub.name}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+            {/* Dropdown Structural Container (Keeps hover mouse path safe) */}
+            <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out z-50">
+
+              {/* The Visual Mega Menu Box */}
+              <div className="w-[700px] bg-white border rounded-xl shadow-xl p-6">
+                {/* Grid matching your 3 items count cleanly */}
+                <div className="grid grid-cols-3 gap-8">
+
+                  {/* 1. Loop through your core Categories first */}
+                  {categoriesData?.map((category: any) => {
+
+                    {/* 2. Find all subcategories that belong to this specific category */ }
+                    const filteredSubs = subCategoriesData?.filter(
+                      (sub: any) => sub.categoryId === category.id
+                    );
+
+                    return (
+                      <div key={category.id} className="space-y-3">
+                        {/* Category Header */}
+                        <h3 className="font-semibold text-sm text-gray-900 border-b pb-1.5">
+                          {category.name}
+                        </h3>
+
+                        {/* Subcategories List */}
+                        <ul className="space-y-2">
+                          {filteredSubs && filteredSubs.length > 0 ? (
+                            filteredSubs.map((sub: any) => (
+                              <li key={sub.id}>
+                                {/* Switch to <Link> if navigating to a filtered search page */}
+                                <button className="text-sm text-gray-500 hover:text-black hover:translate-x-1 transition-all duration-150 block w-full text-left">
+                                  {sub.name}
+                                </button>
+                              </li>
+                            ))
+                          ) : (
+                            // Fallback state if a category doesn't have products yet
+                            <li className="text-xs italic text-gray-400">
+                              No items available
+                            </li>
+                          )}
+                        </ul>
+                      </div>
+                    );
+                  })}
+
+                </div>
               </div>
             </div>
           </div>
@@ -101,11 +140,10 @@ const NavBar: React.FC = () => {
         <div className="flex flex-row gap-4">
           <Link
             className={`p-2 rounded-lg cursor-pointer
-      ${
-        location.pathname.startsWith("/wishlist")
-          ? "bg-secondary"
-          : "hover:bg-secondary"
-      }`}
+      ${location.pathname.startsWith("/wishlist")
+                ? "bg-secondary"
+                : "hover:bg-secondary"
+              }`}
             to="/wishlist"
           >
             <Heart size={24} strokeWidth={1} className="" />
@@ -113,11 +151,10 @@ const NavBar: React.FC = () => {
 
           <Link
             className={`p-2 relative rounded-lg cursor-pointer 
-      ${
-        location.pathname.startsWith("/cart")
-          ? "bg-secondary"
-          : "hover:bg-secondary"
-      }`}
+      ${location.pathname.startsWith("/cart")
+                ? "bg-secondary"
+                : "hover:bg-secondary"
+              }`}
             to="/cart"
           >
             <ShoppingCart size={24} strokeWidth={1} className="" />
@@ -128,10 +165,10 @@ const NavBar: React.FC = () => {
             )}
           </Link>
           <Link
-          className={`p-2 rounded-lg cursor-pointer ${location.pathname.startsWith("/login") ? "bg-secondary" : "hover::bg-secondary"}` } 
-          to="/login"
+            className={`p-2 rounded-lg cursor-pointer ${location.pathname.startsWith("/login") ? "bg-secondary" : "hover::bg-secondary"}`}
+            to="/login"
           >
-          <UserRound size={24} strokeWidth={1}/>
+            <UserRound size={24} strokeWidth={1} />
           </Link>
         </div>
       </div>
@@ -140,7 +177,7 @@ const NavBar: React.FC = () => {
         <div className="md:hidden flex flex-col gap-4 px-4 pb-4 items-center bg-blue-50 rounded-b-lg shadow-inner">
           {menuLevel === "main" && (
             <div className="flex flex-col gap-4 mt-2 w-full items-start">
-              <button onClick={()=> navigate("/")}>Home</button>
+              <button onClick={() => navigate("/")}>Home</button>
 
               <button onClick={() => navigate("/products")}>Shop</button>
 
@@ -158,9 +195,9 @@ const NavBar: React.FC = () => {
               </button>
 
               <button
-              className="flex items-center gap-2 cursor-pointer"
+                className="flex items-center gap-2 cursor-pointer"
               >
-                <UserRound size={16} strokeWidth={1}/>
+                <UserRound size={16} strokeWidth={1} />
                 <span>Login</span>
               </button>
             </div>
@@ -176,7 +213,7 @@ const NavBar: React.FC = () => {
                 <span>Back</span>
               </button>
               <h3 className="text-lg font-medium">Products</h3>
-              {data?.map((category: any) => (
+              {categoriesData?.map((category: any) => (
                 <button
                   key={category.id}
                   onClick={() => {

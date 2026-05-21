@@ -1,17 +1,33 @@
-export interface Products{
-    id: string | number;
-    title: string;
-    price: number;
-    description: string;
-    categoryId: number;
-    subcategoryId: number;
-    category: {
-        id: number;
-        name: string;
-        image: string;
-    };
-    images: [];
-    isNew?: boolean;
+export interface Products {
+ id: number;
+ name:string;
+ description:string;
+ price: number;
+ stock:number;
+ images: [];
+ category: {
+    id:number;
+    name:string;
+    description:string;
+    image?:string;
+ };
+ subcategory: {
+    id:number;
+    name:string;
+    description:string;
+    image?:string;
+    categoryId:number;
+ };
+ variants: Variants[]
 }
 
-export interface ProductResponseType extends Array<Products>{}
+export interface Variants{
+   id: number;
+   productId: number;
+   size: number;
+   color:string;
+   stock:number;
+}
+export interface ProductResponseType{
+   data: Products[]
+}
