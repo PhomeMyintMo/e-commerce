@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/carousel";
 import { ArrowLeft } from "lucide-react";
 import { getProductDetail } from "@/apis/ProductsApi";
-
+import { useToast } from "@/hooks/use-toast";
 
 const ProductDetailPage: React.FC = () => {
   const [expanded, setExpanded] = useState(false);
@@ -35,6 +35,7 @@ const ProductDetailPage: React.FC = () => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (data) {
@@ -56,14 +57,16 @@ const ProductDetailPage: React.FC = () => {
 
   return (
     <div className="p-4">
-      <div className='flex mb-4'>
-        <Button className="cursor-pointer bg-slate-300 hover:bg-slate-400" onClick={() => navigate(-1)}>
-          <ArrowLeft className="text-black" /></Button>
-          </div>
+      <div className="flex mb-4">
+        <Button
+          className="cursor-pointer bg-slate-300 hover:bg-slate-400"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeft className="text-black" />
+        </Button>
+      </div>
       <div className="flex flex-col lg:flex-row gap-16">
-
         <div className="w-full lg:w-1/2 flex flex-col gap-6">
-
           <div className="block lg:hidden px-16">
             <Carousel>
               <CarouselContent>
@@ -90,10 +93,11 @@ const ProductDetailPage: React.FC = () => {
                   key={index}
                   src={image.url}
                   alt={data?.name}
-                  className={`${selectedImage === image.url
-                    ? "border-blue-500"
-                    : "border-gray-200"
-                    } max-w-24 max-h-24 object-cover border cursor-pointer`}
+                  className={`${
+                    selectedImage === image.url
+                      ? "border-blue-500"
+                      : "border-gray-200"
+                  } max-w-24 max-h-24 object-cover border cursor-pointer`}
                   onClick={() => setSelectedImage(image.url)}
                 />
               ))}
@@ -107,9 +111,7 @@ const ProductDetailPage: React.FC = () => {
               />
             </div>
           </div>
-
         </div>
-
 
         <div className="flex flex-col space-y-8 items-start justify-start">
           <h3 className="text-3xl font-semibold">{data?.name}</h3>
@@ -125,21 +127,26 @@ const ProductDetailPage: React.FC = () => {
               </button>
             )}
           </p>
-    
-           <hr className="my-4 border-gray-300 w-full" />
+
+          <hr className="my-4 border-gray-300 w-full" />
           <div className="flex flex-col space-y-4 items-start justify-start">
             <p>Choose Color:</p>
             <div className="flex gap-2">
-              {[...new Set(data?.variants?.map((v: any) => v.color))].map((color: any, index: number) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedColor(color)}
-                  className={`h-8 w-8 rounded-full border cursor-pointer ${selectedColor === color ? "border-secondary-foreground border-2" : "border-gray-300"
+              {[...new Set(data?.variants?.map((v: any) => v.color))].map(
+                (color: any, index: number) => (
+                  <button
+                    key={index}
+                    onClick={() => setSelectedColor(color)}
+                    className={`h-8 w-8 rounded-full border cursor-pointer ${
+                      selectedColor === color
+                        ? "border-secondary-foreground border-2"
+                        : "border-gray-300"
                     }`}
-                  style={{backgroundColor: color}}
-                  title={color}
-                />
-              ))}
+                    style={{ backgroundColor: color }}
+                    title={color}
+                  />
+                ),
+              )}
             </div>
           </div>
           <div className="flex flex-col space-y-4 items-start justify-start">
@@ -151,14 +158,15 @@ const ProductDetailPage: React.FC = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedSize(size)}
-                    className={`border px-3 py-1 cursor-pointer ${selectedSize === size
+                    className={`border px-3 py-1 cursor-pointer ${
+                      selectedSize === size
                         ? "bg-secondary-foreground text-white"
                         : "border-gray-500"
-                      }`}
+                    }`}
                   >
                     {size}
                   </button>
-                )
+                ),
               )}
             </span>
           </div>
@@ -175,36 +183,39 @@ const ProductDetailPage: React.FC = () => {
               <Input
                 type="number"
                 value={quantity}
-                onChange={(e) => setQuantity(Math.max(1, Number(e.target.value) || 1))}
+                onChange={(e) =>
+                  setQuantity(Math.max(1, Number(e.target.value) || 1))
+                }
                 className="h-full w-full text-center"
-
               />
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={increaseQuantity}
-              >
+              <Button variant="outline" size="icon" onClick={increaseQuantity}>
                 <Plus />
               </Button>
             </div>
             <button
               className="bg-gray-500 hover:bg-gray-600 border-gray-500 px-16 p-2 font-medium text-white border cursor-pointer"
-              onClick={() =>
+              onClick={() => {
+                if (!selectedColor || !selectedSize) {
+                  toast({
+                    description: "Please select both color and size.",
+                  });
+                  return;
+                }
+
                 addToCart({
                   id: data?.id,
                   title: data?.name,
                   price: data?.price,
                   image: data?.images?.[0]?.url,
-                  color: selectedColor ?? "",
-                  size: selectedSize ?? "",
+                  color: selectedColor,
+                  size: selectedSize,
                   quantity,
-                })
-              }
+                });
+              }}
             >
               Add to Cart
             </button>
           </div>
-
         </div>
       </div>
     </div>

@@ -31,3 +31,20 @@ export const getProductDetail = async (productId: number) => {
         throw error;
     }
 };
+
+export const getProductByCategoryId = async (categoryId: number) => {
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/products/category/${categoryId}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch product by category id.");
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};

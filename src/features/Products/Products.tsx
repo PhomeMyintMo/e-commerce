@@ -2,7 +2,7 @@ import { getCategories } from "@/apis/CategoriesApi";
 import { getAllProducts } from "@/apis/ProductsApi";
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { ArrowDown} from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { useWishlist } from "@/contexts/WishListContext";
 import {
   Select,
@@ -14,6 +14,7 @@ import {
 import BreadcrumbComponent from "@/components/BreadcrumbComponent";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "@/components/ProductCard";
+import { motion } from "motion/react";
 
 const CategoryList: React.FC = () => {
   const navigate = useNavigate();
@@ -30,7 +31,12 @@ const CategoryList: React.FC = () => {
         <div className="text-2xl font-medium mb-4">
           All Products Uncategorized
         </div>
-        <div className="flex gap-2 justify-center">Choose your favorite Categories here<span><ArrowDown /></span></div>
+        <div className="flex gap-2 justify-center">
+          Choose your favorite Categories here
+          <span>
+            <ArrowDown />
+          </span>
+        </div>
       </div>
       <div className="flex gap-2 justify-center">
         {categoryData.map((category: any) => (
@@ -41,7 +47,7 @@ const CategoryList: React.FC = () => {
               className={`w-16 h-16 object-cover transition-transform duration-500 hover:scale-110 cursor-pointer`}
               onClick={() => navigate(`/products/${category.id}`)}
             />
-            <div className=" text-xs mt-2">{category.name}</div>
+            <div className=" text-xs mt-2 flex flex-wrap">{category.name}</div>
           </div>
         ))}
       </div>
@@ -59,7 +65,7 @@ const Products: React.FC = () => {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["products"],
-    queryFn: () => getAllProducts()
+    queryFn: () => getAllProducts(),
   });
 
   if (isLoading) return <div>Loading...</div>;
@@ -86,17 +92,29 @@ const Products: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-8">
-        {data.map((product: any) => {
+        {data.map((product: any, index: number) => {
           return (
-            <ProductCard
+            <motion.div
               key={product.id}
-              product={product}
-              wishlist={wishlist}
-              addToWishlist={addToWishlist}
-              removeFavoriteItem={removeFavoriteItem}
-              navigate={navigate}
-            />
-          )
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 0.1,
+                ease: "easeOut",
+              }}
+            >
+              <ProductCard
+                key={product.id}
+                product={product}
+                wishlist={wishlist}
+                addToWishlist={addToWishlist}
+                removeFavoriteItem={removeFavoriteItem}
+                navigate={navigate}
+              />
+            </motion.div>
+          );
         })}
       </div>
     </div>
