@@ -14,21 +14,28 @@ import { getCategories } from "@/apis/CategoriesApi";
 import { useQuery } from "@tanstack/react-query";
 import { getSubCategories } from "@/apis/SubCategoriesApi";
 import { useWishlist } from "@/contexts/WishListContext";
+import LoginPage from "@/features/Auth/LoginPage";
 
 const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const { cart } = useCart();
   const { wishlist } = useWishlist();
   const location = useLocation();
 
-  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = cart.length;
   const [selectCategory, setSelectCategory] = useState<any>(null);
   const [menuLevel, setMenuLevel] = useState<
     "main" | "categories" | "subcategories"
   >("main");
   const navigate = useNavigate();
 
-  const { data: subCategoriesData, isLoading, isError, error } = useQuery({
+  const {
+    data: subCategoriesData,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["sub-categories"],
     queryFn: () => getSubCategories(),
   });
@@ -42,26 +49,29 @@ const NavBar: React.FC = () => {
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
+    <>
     <header className="top-0 sticky z-10 shadow-lg px-4 bg-neutral-50">
       <div className="flex justify-between items-center py-4">
         <div className="hidden md:flex gap-4">
           <Link
             to="/"
             className={`px-4 py-2 transition-colors duration-200 border-b-2
-    ${location.pathname === "/"
-                ? "border-black text-black font-semibold"
-                : "border-transparent text-gray-500 hover:text-black hover:border-gray-300"
-              }`}
+    ${
+      location.pathname === "/"
+        ? "border-black text-black font-semibold"
+        : "border-transparent text-gray-500 hover:text-black hover:border-gray-300"
+    }`}
           >
             Home
           </Link>
           <Link
             to="/products"
             className={`px-4 py-2 transition-colors duration-200 border-b-2
-    ${location.pathname.startsWith("/products")
-                ? "border-black text-black font-semibold"
-                : "border-transparent text-gray-500 hover:text-black hover:border-gray-300"
-              }`}
+    ${
+      location.pathname.startsWith("/products")
+        ? "border-black text-black font-semibold"
+        : "border-transparent text-gray-500 hover:text-black hover:border-gray-300"
+    }`}
           >
             Shop
           </Link>
@@ -77,18 +87,17 @@ const NavBar: React.FC = () => {
             {/* Dropdown (mega menu) */}
             {/* Dropdown Structural Container (Keeps hover mouse path safe) */}
             <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out z-50">
-
               {/* The Visual Mega Menu Box */}
               <div className="w-[700px] bg-white border rounded-xl shadow-xl p-6">
                 {/* Grid matching your 3 items count cleanly */}
                 <div className="grid grid-cols-3 gap-8">
-
                   {/* 1. Loop through your core Categories first */}
                   {categoriesData?.map((category: any) => {
-
-                    {/* 2. Find all subcategories that belong to this specific category */ }
+                    {
+                      /* 2. Find all subcategories that belong to this specific category */
+                    }
                     const filteredSubs = subCategoriesData?.filter(
-                      (sub: any) => sub.categoryId === category.id
+                      (sub: any) => sub.categoryId === category.id,
                     );
 
                     return (
@@ -119,7 +128,6 @@ const NavBar: React.FC = () => {
                       </div>
                     );
                   })}
-
                 </div>
               </div>
             </div>
@@ -142,10 +150,11 @@ const NavBar: React.FC = () => {
         <div className="flex flex-row gap-4">
           <Link
             className={`p-2 relative rounded-lg cursor-pointer
-      ${location.pathname.startsWith("/wishlist")
-                ? "bg-secondary"
-                : "hover:bg-secondary"
-              }`}
+      ${
+        location.pathname.startsWith("/wishlist")
+          ? "bg-secondary"
+          : "hover:bg-secondary"
+      }`}
             to="/wishlist"
           >
             <Heart size={24} strokeWidth={1} className="" />
@@ -158,10 +167,11 @@ const NavBar: React.FC = () => {
 
           <Link
             className={`p-2 relative rounded-lg cursor-pointer 
-      ${location.pathname.startsWith("/cart")
-                ? "bg-secondary"
-                : "hover:bg-secondary"
-              }`}
+      ${
+        location.pathname.startsWith("/cart")
+          ? "bg-secondary"
+          : "hover:bg-secondary"
+      }`}
             to="/cart"
           >
             <ShoppingCart size={24} strokeWidth={1} className="" />
@@ -171,12 +181,9 @@ const NavBar: React.FC = () => {
               </span>
             )}
           </Link>
-          <Link
-            className={`p-2 rounded-lg cursor-pointer ${location.pathname.startsWith("/login") ? "bg-secondary" : "hover::bg-secondary"}`}
-            to="/login"
-          >
+          <div className={`p-2 rounded-lg cursor-pointer`} onClick={() => setModalOpen(true)}>
             <UserRound size={24} strokeWidth={1} />
-          </Link>
+          </div>
         </div>
       </div>
 
@@ -201,9 +208,7 @@ const NavBar: React.FC = () => {
                 </span>
               </button>
 
-              <button
-                className="flex items-center gap-2 cursor-pointer"
-              >
+              <button className="flex items-center gap-2 cursor-pointer">
                 <UserRound size={16} strokeWidth={1} />
                 <span>Login</span>
               </button>
@@ -256,10 +261,14 @@ const NavBar: React.FC = () => {
               ))}
             </div>
           )}
-
         </div>
       )}
     </header>
+    <LoginPage
+    isOpen={modalOpen}
+    onClose={() => setModalOpen(false)}
+    />
+    </>
   );
 };
 

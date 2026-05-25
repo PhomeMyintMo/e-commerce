@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
   if (isError) return <div>Error...</div>;
 
   return (
-    <div>
+    <div className="overflow-hidden">
       <div className="relative">
         <video
           src={femmestyle}
@@ -130,7 +130,7 @@ const HomePage: React.FC = () => {
               <h4 className="text-white text-lg">{category.description}</h4>
               <button
                 className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8"
-                onClick={() => navigate(`/products/${category.id}`)}
+                onClick={() => navigate(`/products/category/${category.id}`)}
               >
                 SHOP NOW
               </button>

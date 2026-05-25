@@ -5,9 +5,8 @@ import CartTable from "./features/Cart/CartTable";
 import WishlistPage from "./features/Wishlist/WishlistPage";
 import NotFoundPage from "./components/NotFoundPage";
 import HomePage from "./features/Home/HomePage";
-import Products from "./features/Products/Products";
-import CategoryDetailPage from "./features/Products/CategoryDetailPage";
 import ProductDetailPage from "./features/Products/ProductDetailPage";
+import ProductList from "./features/Products/Products";
 
 const Route: React.FC = () => {
   const routes = useRoutes([
@@ -29,18 +28,12 @@ const Route: React.FC = () => {
       children: [
         {
           path: "/products",
-          element: <Products/>
+          element: <ProductList/>
         },
          {
           path: "/products/:id",
           element: <ProductDetailPage/>
-        },
-        // {
-        //   path: "/products/:categoryId",
-        //   element:
-        //       <CategoryDetailPage/>
-        // },
-       
+        }
       ]
     },
     {

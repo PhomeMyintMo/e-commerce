@@ -24,25 +24,25 @@ const ProductDetailPage: React.FC = () => {
     queryKey: ["products", id],
     queryFn: () => getProductDetail(Number(id)),
   });
-  const isLong = data?.description.length > 100;
+const isLong = (data?.description?.length ?? 0) > 100;
   const visibleDescription =
     isLong && !expanded
       ? data?.description.slice(0, 100) + "..."
       : data?.description;
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { cart, addToCart } = useCart();
+  const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  useEffect(() => {
-    if (data) {
-      const existing = cart.find((cartItem) => cartItem.id === data?.id);
-      setQuantity(existing?.quantity || 1);
-    }
-  }, [data, cart]);
+  // useEffect(() => {
+  //   if (data) {
+  //     const existing = cart.find((cartItem) => cartItem.id && cartItem.color && cartItem.size === data?.id && data?.color && data?.size); 
+  //     setQuantity(existing?.quantity || 1);
+  //   }
+  // }, [data, cart]);
 
   const increaseQuantity = () => setQuantity((q) => q + 1);
   const decreaseQuantity = () => setQuantity((q) => Math.max(1, q - 1));
@@ -53,7 +53,7 @@ const ProductDetailPage: React.FC = () => {
     } else {
       setSelectedImage(null);
     }
-  }, [data?.images.length]);
+  }, [data?.images]);
 
   return (
     <div className="p-4">
@@ -76,7 +76,7 @@ const ProductDetailPage: React.FC = () => {
                       src={image.url}
                       alt={data?.name}
                       className="w-full h-full object-cover"
-                      onClick={() => setSelectedImage(image)}
+                      onClick={() => setSelectedImage(image.url)}
                     />
                   </CarouselItem>
                 ))}
@@ -115,7 +115,7 @@ const ProductDetailPage: React.FC = () => {
 
         <div className="flex flex-col space-y-8 items-start justify-start">
           <h3 className="text-3xl font-semibold">{data?.name}</h3>
-          <p className="text-xl text-gray-500 font-semibold">${data?.price}</p>
+          <p className="text-xl text-gray-500 font-semibold">MMK{" "}{data?.price}</p>
           <p className="text-xl text-start text-gray-500">
             {visibleDescription}
             {isLong && (
@@ -209,7 +209,7 @@ const ProductDetailPage: React.FC = () => {
                   image: data?.images?.[0]?.url,
                   color: selectedColor,
                   size: selectedSize,
-                  quantity,
+                  quantity: quantity,
                 });
               }}
             >

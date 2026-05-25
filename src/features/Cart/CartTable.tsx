@@ -1,15 +1,16 @@
 import React from "react";
-import { useCart } from "@/contexts/CartContext";
+import { useCart, type CartItem } from "@/contexts/CartContext";
 import { Input } from "@/components/ui/input";
-import { ChevronLeft, Minus, Plus, Trash2 } from "lucide-react";
+import { ChevronLeft, Minus, Plus, Trash2, Undo2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { ToastAction } from "@/components/ui/toast";
 
 
 const CartTable: React.FC = () => {
-  const { cart, addToCart, removeCartItem, decreaseCartItem } = useCart();
+  const { cart, addToCart, removeCartItem, decreaseCartItem, increaseCartItem } = useCart();
   const SubTotalAmount = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -22,6 +23,20 @@ const CartTable: React.FC = () => {
   const { toast } = useToast();
 
   const navigate = useNavigate();
+
+  const handleRemove = (item: CartItem) => {
+    const removedItem = item;
+    removeCartItem(item.id);
+    toast({
+      description: "Item removed from cart.",
+       action: (
+      <ToastAction altText="Undo" onClick={() => addToCart(removedItem)} className="flex gap-1">
+        <Undo2 size={14}/>Undo
+      </ToastAction>
+    ),
+    })
+  }
+  
 
   return (
     <div className="p-4 space-y-3">
@@ -53,7 +68,6 @@ const CartTable: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Quantity Controls */}
                 <div className="flex items-center gap-2">
                   <Button
                     variant="outline"
@@ -75,15 +89,7 @@ const CartTable: React.FC = () => {
                     variant="outline"
                     size="icon"
                     onClick={() =>
-                      addToCart({
-                        id: item.id,
-                        title: item.title,
-                        price: item.price,
-                        image: item.image,
-                        color: item.color,
-                        size: item.size,
-                        quantity: item.quantity,
-                      })
+                      increaseCartItem(item.id)
                     }
                   >
                     <Plus className="h-4 w-4" />
@@ -99,7 +105,7 @@ const CartTable: React.FC = () => {
 
                 <Button
                   variant="ghost"
-                  onClick={() => removeCartItem(item.id)}
+                  onClick={() => handleRemove(item)}
                   className="cursor-pointer"
                 >
                   <Trash2 className="w-5 h-5 text-red-500" />
