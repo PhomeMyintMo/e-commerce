@@ -1,12 +1,21 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface FavoriteItem {
-id: number;
-title: string;
-price: number;
-image: string;
+  id: number;
+  name: string;
+  price: number;
+  images: {
+    url: string;
+  }[];
+  category?: {
+    name: string;
+  };
+  variants?: {
+    color: string;
+    size: string;
+  }[];
+  createdAt?: string;
 }
-
 interface WishlistContextType {
     wishlist: FavoriteItem[],
     addToWishlist: (item: FavoriteItem) => void;
@@ -17,7 +26,15 @@ interface WishlistContextType {
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
 
 export const WishlistProvider : React.FC<React.PropsWithChildren<{}>> = ({children}) => {
-    const [wishlist, setWishlist] = useState<FavoriteItem[]>([]);
+      const [wishlist, setWishlist] = useState<FavoriteItem[]>(() => {
+    const storedWishlist = localStorage.getItem("wishlist");
+    return storedWishlist ? JSON.parse(storedWishlist) : [];
+  });
+
+    useEffect(() => {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [wishlist]);
+
 
     const addToWishlist = (item: FavoriteItem) => {
         setWishlist((prev) => {

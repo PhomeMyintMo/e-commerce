@@ -13,10 +13,12 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 import { getCategories } from "@/apis/CategoriesApi";
 import { useQuery } from "@tanstack/react-query";
 import { getSubCategories } from "@/apis/SubCategoriesApi";
+import { useWishlist } from "@/contexts/WishListContext";
 
 const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { cart } = useCart();
+  const { wishlist } = useWishlist();
   const location = useLocation();
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -139,7 +141,7 @@ const NavBar: React.FC = () => {
         {/* Right */}
         <div className="flex flex-row gap-4">
           <Link
-            className={`p-2 rounded-lg cursor-pointer
+            className={`p-2 relative rounded-lg cursor-pointer
       ${location.pathname.startsWith("/wishlist")
                 ? "bg-secondary"
                 : "hover:bg-secondary"
@@ -147,6 +149,11 @@ const NavBar: React.FC = () => {
             to="/wishlist"
           >
             <Heart size={24} strokeWidth={1} className="" />
+            {wishlist.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-foreground/50 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {wishlist.length}
+              </span>
+            )}
           </Link>
 
           <Link

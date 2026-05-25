@@ -14,6 +14,7 @@ const CartTable: React.FC = () => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
+  console.log("cart", cart)
   const shippingFee = cart.length > 0 ? 20 : 0;
 
   const Total = SubTotalAmount + shippingFee;

@@ -4,7 +4,7 @@ import { Badge } from "./ui/badge";
 
 type Props = {
   product: any;
-  wishlist: any[];
+  wishlist: any;
   addToWishlist: any;
   removeFavoriteItem: any;
   navigate: any;
@@ -51,20 +51,21 @@ export const ProductCard = ({
 
         {/* Wishlist */}
         <button
-          onClick={(e) =>{
+          onClick={(e) => {
             e.stopPropagation();
             isFavorite
               ? removeFavoriteItem(product.id)
-              : addToWishlist({
-                id: product.id,
-                title: product.name,
-                price: product.price,
-                image: product.images?.[0],
-              })}
+              : addToWishlist(product)
           }
-          className="absolute top-3 right-3 bg-white/90 p-2 rounded-full"
+          }
+          className="absolute top-3 right-3 p-2 hover:bg-white/50 rounded-full"
         >
-          <Heart fill={isFavorite ? "red" : "none"} />
+          <Heart
+            size={20}
+            fill={isFavorite ? "currentColor" : "none"}
+            className="text-foreground/80"
+            strokeWidth={1.5}
+          />
         </button>
 
         {/* NEW */}
@@ -76,14 +77,14 @@ export const ProductCard = ({
 
         {/* OUT OF STOCK */}
         {status === "out" && (
-         <Badge className="absolute top-12 left-3 z-10 bg-red-500 text-white pointer-events-none">
+          <Badge className="absolute top-12 left-3 z-10 bg-red-500 text-white pointer-events-none">
             Out of Stock
           </Badge>
         )}
 
         {/* LOW STOCK */}
         {status === "low" && (
-         <Badge className="absolute bottom-3 left-3 z-10 bg-yellow-500 text-black pointer-events-none">
+          <Badge className="absolute bottom-3 left-3 z-10 bg-yellow-500 text-black pointer-events-none">
             Low Stock
           </Badge>
         )}
