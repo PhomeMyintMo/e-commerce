@@ -1,5 +1,5 @@
 import { getCategories } from "@/apis/CategoriesApi";
-import { getAllProducts, getProductByCategoryId } from "@/apis/ProductsApi"; // add getProductsByCategory
+import { getAllProducts } from "@/apis/ProductsApi"; // add getProductsByCategory
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
 import { ArrowDown } from "lucide-react";
@@ -15,14 +15,31 @@ import BreadcrumbComponent from "@/components/BreadcrumbComponent";
 import { useNavigate } from "react-router-dom"; // add useParams
 import { ProductCard } from "@/components/ProductCard";
 import { motion } from "motion/react";
+import { useSearchParams } from "react-router-dom";
 
 const ProductList: React.FC = () => {
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string>("all");
+  const [searchParams] = useSearchParams();
+
+  const initialCategoryId =
+    searchParams.get("categoryId") || "all";
+
+  const initialSubCategoryId =
+    searchParams.get("subcategoryId") || "all";
+
+  const [selectedCategoryId, setSelectedCategoryId] =
+    useState<string>(initialCategoryId);
+
+  const [selectedSubCategoryId, setSelectedSubCategoryId] =
+    useState<string>(initialSubCategoryId);
+
 
   const { data: categoryData = [], isLoading } = useQuery({
     queryKey: ["category"],
     queryFn: () => getCategories(),
   });
+  const selectedCategory = categoryData.find(
+    (cat: any) => String(cat.id) === selectedCategoryId
+  );
 
   if (isLoading) {
     return (
@@ -38,7 +55,7 @@ const ProductList: React.FC = () => {
         <div className="text-3xl font-black tracking-tight text-gray-900 mb-4">
           {selectedCategoryId === "all"
             ? "All Products"
-            : "Products by Category"}
+            : selectedCategory?.name}
         </div>
 
         <div className="flex gap-2 justify-center text-muted-foreground">
@@ -49,15 +66,17 @@ const ProductList: React.FC = () => {
 
       <div className="flex flex-wrap items-center justify-center gap-3 px-6 py-8">
         <button
-          onClick={() => setSelectedCategoryId("all")}
+          onClick={() => {
+            setSelectedCategoryId("all");
+            setSelectedSubCategoryId("all");
+          }}
           className={`
             relative overflow-hidden px-5 py-2.5
             text-sm uppercase tracking-wide transition-all duration-200
-            hover:scale-[1.02] active:scale-[0.98]
-            ${
-              selectedCategoryId === "all"
-                ? "font-bold"
-                : "text-muted-foreground hover:font-bold"
+            hover:scale-[1.02] active:scale-[0.98] cursor-pointer
+            ${selectedCategoryId === "all"
+              ? "font-bold"
+              : "text-muted-foreground hover:font-bold"
             }
           `}
         >
@@ -70,15 +89,17 @@ const ProductList: React.FC = () => {
           return (
             <button
               key={category.id}
-              onClick={() => setSelectedCategoryId(String(category.id))}
+              onClick={() => {
+                setSelectedCategoryId(String(category.id));
+                setSelectedSubCategoryId("all");
+              }}
               className={`
                 relative overflow-hidden px-5 py-2.5
                 text-sm uppercase tracking-wide transition-all duration-200
-                hover:scale-[1.02] active:scale-[0.98]
-                ${
-                  isActive
-                    ? "font-bold"
-                    : "text-muted-foreground hover:font-bold"
+                hover:scale-[1.02] active:scale-[0.98] cursor-pointer
+                ${isActive
+                  ? "font-bold"
+                  : "text-muted-foreground hover:font-bold"
                 }
               `}
             >
@@ -88,10 +109,51 @@ const ProductList: React.FC = () => {
         })}
       </div>
 
+      {/* Subcategories */}
+      {selectedCategoryId !== "all" &&
+        selectedCategory?.subcategories?.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-3 pb-8">
+            <button
+              onClick={() => setSelectedSubCategoryId("all")}
+              className={`px-4 py-2 text-sm cursor-pointer
+              ${selectedSubCategoryId === "all"
+                  ? "font-bold"
+                  : "text-muted-foreground"
+                }`}
+            >
+              All
+            </button>
+
+            {selectedCategory.subcategories.map((sub: any) => (
+              <button
+                key={sub.id}
+                onClick={() =>
+                  setSelectedSubCategoryId(String(sub.id))
+                }
+                className={`px-4 py-2  text-sm cursor-pointer
+                ${selectedSubCategoryId === String(sub.id)
+                    ? "font-bold"
+                    : "text-muted-foreground"
+                  }`}
+              >
+                {sub.name}
+              </button>
+            ))}
+          </div>
+        )}
+
       <div>
+
         <Products
           categoryId={
-            selectedCategoryId === "all" ? undefined : selectedCategoryId
+            selectedCategoryId === "all"
+              ? undefined
+              : selectedCategoryId
+          }
+          subCategoryId={
+            selectedSubCategoryId === "all"
+              ? undefined
+              : selectedSubCategoryId
           }
         />
       </div>
@@ -99,17 +161,20 @@ const ProductList: React.FC = () => {
   );
 };
 
-const Products: React.FC<{ categoryId?: string }> = ({ categoryId }) => {
+const Products: React.FC<{ categoryId?: string; subCategoryId?: string; }> = ({ categoryId, subCategoryId }) => {
   const { wishlist, addToWishlist, removeFavoriteItem } = useWishlist();
   const [sortOption, setSortOption] = useState<string>("default");
   const navigate = useNavigate();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["products", categoryId],
+    queryKey: ["products", categoryId, subCategoryId],
     queryFn: () =>
-      categoryId
-        ? getProductByCategoryId(Number(categoryId))
-        : getAllProducts(),
+      getAllProducts(
+        categoryId ? Number(categoryId) : undefined,
+        subCategoryId
+          ? Number(subCategoryId)
+          : undefined
+      ),
   });
 
   const sortedData = React.useMemo(() => {

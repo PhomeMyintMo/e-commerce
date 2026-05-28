@@ -15,7 +15,6 @@ const CartTable: React.FC = () => {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  console.log("cart", cart)
   const shippingFee = cart.length > 0 ? 20 : 0;
 
   const Total = SubTotalAmount + shippingFee;
@@ -62,7 +61,7 @@ const CartTable: React.FC = () => {
 
                   <div className="flex items-start flex-col">
                     <h2 className="font-semibold text-lg">{item.title}</h2>
-                    <div className="font-semibold text-muted-foreground">Ks{" "}{item.price}</div>
+                    <div className="font-semibold text-muted-foreground">MMK{" "}{item.price}</div>
                     <div className="text-sm">Color: {item.color ?? "-"}</div>
                     <div className="text-sm">Size: {item.size ?? "-"}</div>
                   </div>
@@ -99,7 +98,7 @@ const CartTable: React.FC = () => {
                 <p className="text-muted-foreground">
                   Total:{" "}
                   <span className="font-semibold">
-                    Ks{" "}{item.price * item.quantity}
+                    MMK{" "}{item.price * item.quantity}
                   </span>
                 </p>
 

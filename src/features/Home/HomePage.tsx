@@ -8,6 +8,7 @@ import { isNewProduct } from "@/lib/helper";
 import { ProductCard } from "@/components/ProductCard";
 import { useWishlist } from "@/contexts/WishListContext";
 import { motion } from "motion/react";
+import { ChevronRight } from "lucide-react";
 
 const HomePage: React.FC = () => {
   const { wishlist, addToWishlist, removeFavoriteItem } = useWishlist();
@@ -31,6 +32,8 @@ const HomePage: React.FC = () => {
     const result = isNewProduct(p.createdAt);
     return result;
   });
+
+  const latestProducts = newProducts?.slice(0, 3);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
@@ -60,45 +63,54 @@ const HomePage: React.FC = () => {
 
       {/* new products */}
       <div className="px-4 sm:px-8 md:px-16 lg:px-32 mt-16 mb-16">
-        <div className="mb-8 text-center md:text-left">
-          <h2 className="text-2xl md:text-3xl font-semibold">New Products</h2>
-          <h4 className="text-gray-600">
-            The latest looks, created with passion.
-          </h4>
-        </div>
+  {/* Header */}
+  <div className="mb-10 text-center md:text-left">
+    <h2 className="text-2xl md:text-3xl font-semibold">
+      New Products
+    </h2>
+    <h4 className="text-gray-600 mt-1">
+      The latest looks, created with passion.
+    </h4>
+  </div>
 
-        <div className="overflow-hidden w-full py-4">
-          <motion.div
-            className="flex gap-6 w-max"
-            animate={{
-              x: ["0%", "-50%"],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 20,
-              ease: "linear",
-            }}
-          >
-            {[...newProducts, ...newProducts].map(
-              (product: any, index: number) => (
-                <motion.div
-                  key={`${product.id}-${index}`}
-                  whileHover={{ scale: 1.03 }}
-                  className="min-w-[250px] sm:min-w-[300px]"
-                >
-                  <ProductCard
-                    product={product}
-                    wishlist={wishlist}
-                    addToWishlist={addToWishlist}
-                    removeFavoriteItem={removeFavoriteItem}
-                    navigate={navigate}
-                  />
-                </motion.div>
-              ),
-            )}
-          </motion.div>
+  {/* Horizontal Scroll */}
+  <div className="w-full overflow-x-auto py-4">
+    <div className="flex gap-6 min-w-max px-1">
+      {latestProducts.map((product: any) => (
+        <div
+          key={product.id}
+          className="min-w-[250px] sm:min-w-[300px] flex-shrink-0"
+        >
+          <ProductCard
+            product={product}
+            wishlist={wishlist}
+            addToWishlist={addToWishlist}
+            removeFavoriteItem={removeFavoriteItem}
+            navigate={navigate}
+          />
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+
+  {/* View All CTA */}
+  <div className="mt-10 flex justify-center md:justify-end">
+    <Link
+      to="/products"
+      className="group flex items-center gap-2 text-sm font-medium text-black hover:text-gray-700 transition"
+    >
+      <span className="border-b border-transparent group-hover:border-black transition">
+        View All Products
+      </span>
+
+      {/* Animated Arrow */}
+      <ChevronRight
+        size={18}
+        className="transition-transform duration-200 group-hover:translate-x-1"
+      />
+    </Link>
+  </div>
+</div>
 
       {/* category */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  mt-4">

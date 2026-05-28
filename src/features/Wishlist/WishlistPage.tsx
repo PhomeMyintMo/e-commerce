@@ -12,8 +12,6 @@ const WishlistPage: React.FC = () => {
     removeFavoriteItem
   } = useWishlist();
 
-  console.log("wishlist", wishlist)
-
   const navigate = useNavigate();
 
   return (

@@ -9,7 +9,7 @@ import {
   X,
 } from "lucide-react";
 import React, { useState } from "react";
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useLocation, Link, useNavigate, Links } from "react-router-dom";
 import { getCategories } from "@/apis/CategoriesApi";
 import { useQuery } from "@tanstack/react-query";
 import { getSubCategories } from "@/apis/SubCategoriesApi";
@@ -84,14 +84,10 @@ const NavBar: React.FC = () => {
               </span>
             </button>
 
-            {/* Dropdown (mega menu) */}
-            {/* Dropdown Structural Container (Keeps hover mouse path safe) */}
+          
             <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out z-50">
-              {/* The Visual Mega Menu Box */}
               <div className="w-[700px] bg-white border rounded-xl shadow-xl p-6">
-                {/* Grid matching your 3 items count cleanly */}
                 <div className="grid grid-cols-3 gap-8">
-                  {/* 1. Loop through your core Categories first */}
                   {categoriesData?.map((category: any) => {
                     {
                       /* 2. Find all subcategories that belong to this specific category */
@@ -102,24 +98,20 @@ const NavBar: React.FC = () => {
 
                     return (
                       <div key={category.id} className="space-y-3">
-                        {/* Category Header */}
                         <h3 className="font-semibold text-sm text-gray-900 border-b pb-1.5">
                           {category.name}
                         </h3>
 
-                        {/* Subcategories List */}
                         <ul className="space-y-2">
                           {filteredSubs && filteredSubs.length > 0 ? (
                             filteredSubs.map((sub: any) => (
                               <li key={sub.id}>
-                                {/* Switch to <Link> if navigating to a filtered search page */}
-                                <button className="text-sm text-gray-500 hover:text-black hover:translate-x-1 transition-all duration-150 block w-full text-left">
+                                <Link to={`/products?categoryId=${category.id}&subcategoryId=${sub.id}`} className="text-sm text-gray-500 hover:text-black hover:translate-x-1 transition-all duration-150 block w-full text-left">
                                   {sub.name}
-                                </button>
+                                </Link>
                               </li>
                             ))
                           ) : (
-                            // Fallback state if a category doesn't have products yet
                             <li className="text-xs italic text-gray-400">
                               No items available
                             </li>

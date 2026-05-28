@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Minus } from "lucide-react";
+import { ChevronLeft, Minus } from "lucide-react";
 import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
@@ -24,7 +24,7 @@ const ProductDetailPage: React.FC = () => {
     queryKey: ["products", id],
     queryFn: () => getProductDetail(Number(id)),
   });
-const isLong = (data?.description?.length ?? 0) > 100;
+  const isLong = (data?.description?.length ?? 0) > 100;
   const visibleDescription =
     isLong && !expanded
       ? data?.description.slice(0, 100) + "..."
@@ -37,15 +37,13 @@ const isLong = (data?.description?.length ?? 0) > 100;
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // useEffect(() => {
-  //   if (data) {
-  //     const existing = cart.find((cartItem) => cartItem.id && cartItem.color && cartItem.size === data?.id && data?.color && data?.size); 
-  //     setQuantity(existing?.quantity || 1);
-  //   }
-  // }, [data, cart]);
-
   const increaseQuantity = () => setQuantity((q) => q + 1);
   const decreaseQuantity = () => setQuantity((q) => Math.max(1, q - 1));
+
+  const hasImages = data?.images && data.images.length > 0;
+
+  const fallbackImage =
+    "https://placehold.co/600x800?text=No+Image";
 
   useEffect(() => {
     if (data?.images.length > 0) {
@@ -56,30 +54,34 @@ const isLong = (data?.description?.length ?? 0) > 100;
   }, [data?.images]);
 
   return (
-    <div className="p-4">
-      <div className="flex mb-4">
-        <Button
-          className="cursor-pointer bg-slate-300 hover:bg-slate-400"
-          onClick={() => navigate(-1)}
-        >
-          <ArrowLeft className="text-black" />
-        </Button>
-      </div>
+    <div className="p-4 space-y-6">
+      <button className="flex cursor-pointer items-center gap-2" onClick={() => navigate("/products")}><ChevronLeft size={18} />Continue Shopping</button>
       <div className="flex flex-col lg:flex-row gap-16">
         <div className="w-full lg:w-1/2 flex flex-col gap-6">
           <div className="block lg:hidden px-16">
             <Carousel>
               <CarouselContent>
-                {data?.images?.map((image: any, index: number) => (
-                  <CarouselItem key={index}>
+                {hasImages ? (
+                  data?.images?.map((image: any, index: number) => (
+                    <CarouselItem key={index}>
+                      <img
+                        src={image.url}
+                        alt={data?.name}
+                        className="w-full h-full object-cover"
+                        onClick={() => setSelectedImage(image.url)}
+                      />
+                    </CarouselItem>
+                  ))
+                ) : (
+                  <CarouselItem>
                     <img
-                      src={image.url}
-                      alt={data?.name}
+                      src={fallbackImage}
+                      alt="No image"
                       className="w-full h-full object-cover"
-                      onClick={() => setSelectedImage(image.url)}
                     />
                   </CarouselItem>
-                ))}
+                )
+                }
               </CarouselContent>
               <CarouselPrevious />
               <CarouselNext />
@@ -88,26 +90,36 @@ const isLong = (data?.description?.length ?? 0) > 100;
 
           <div className="hidden lg:flex gap-6">
             <div className="flex flex-col gap-3">
-              {data?.images?.map((image: any, index: number) => (
-                <img
-                  key={index}
-                  src={image.url}
-                  alt={data?.name}
-                  className={`${
-                    selectedImage === image.url
+              {hasImages ? (
+                data?.images?.map((image: any, index: number) => (
+                  <img
+                    key={index}
+                    src={image.url}
+                    alt={data?.name}
+                    className={`${selectedImage === image.url
                       ? "border-blue-500"
                       : "border-gray-200"
-                  } max-w-24 max-h-24 object-cover border cursor-pointer`}
-                  onClick={() => setSelectedImage(image.url)}
-                />
-              ))}
+                      } max-w-24 max-h-24 object-cover border cursor-pointer`}
+                    onClick={() => setSelectedImage(image.url)}
+                  />
+                ))
+              ) : (
+                <div className="w-24 h-24 border bg-gray-100 flex items-center justify-center text-xs text-gray-400">
+                  No Image
+                </div>
+              )
+              }
             </div>
 
-            <div className="">
+            <div className="w-[500px] h-[650px] overflow-hidden">
               <img
-                src={selectedImage ?? data?.images?.[0]?.url}
+                src={
+                  selectedImage ??
+                  data?.images?.[0]?.url ??
+                  fallbackImage
+                }
                 alt={data?.title}
-                className="min-w-full h-full object-cover"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
@@ -137,11 +149,10 @@ const isLong = (data?.description?.length ?? 0) > 100;
                   <button
                     key={index}
                     onClick={() => setSelectedColor(color)}
-                    className={`h-8 w-8 rounded-full border cursor-pointer ${
-                      selectedColor === color
-                        ? "border-secondary-foreground border-2"
-                        : "border-gray-300"
-                    }`}
+                    className={`h-8 w-8 rounded-full border cursor-pointer ${selectedColor === color
+                      ? "border-secondary-foreground border-2"
+                      : "border-gray-300"
+                      }`}
                     style={{ backgroundColor: color }}
                     title={color}
                   />
@@ -158,11 +169,10 @@ const isLong = (data?.description?.length ?? 0) > 100;
                   <button
                     key={index}
                     onClick={() => setSelectedSize(size)}
-                    className={`border px-3 py-1 cursor-pointer ${
-                      selectedSize === size
-                        ? "bg-secondary-foreground text-white"
-                        : "border-gray-500"
-                    }`}
+                    className={`border px-3 py-1 cursor-pointer ${selectedSize === size
+                      ? "bg-secondary-foreground text-white"
+                      : "border-gray-500"
+                      }`}
                   >
                     {size}
                   </button>
