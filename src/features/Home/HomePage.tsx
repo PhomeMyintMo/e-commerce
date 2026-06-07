@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
     queryFn: () => getCategories(),
   });
 
-  const newProducts = productData?.filter((p: any) => {
+  const newProducts = productData?.data?.filter((p: any) => {
     const result = isNewProduct(p.createdAt);
     return result;
   });
@@ -114,7 +114,7 @@ const HomePage: React.FC = () => {
 
       {/* category */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  mt-4">
-        {categoryData?.map((category: any, index: number) => (
+        {categoryData?.data?.map((category: any, index: number) => (
           <motion.div
             key={category.id}
             initial={{ opacity: 0, y: 80 }}

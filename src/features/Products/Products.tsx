@@ -37,7 +37,7 @@ const ProductList: React.FC = () => {
     queryKey: ["category"],
     queryFn: () => getCategories(),
   });
-  const selectedCategory = categoryData.find(
+  const selectedCategory = categoryData?.data?.find(
     (cat: any) => String(cat.id) === selectedCategoryId
   );
 
@@ -83,7 +83,7 @@ const ProductList: React.FC = () => {
           <span className="">All</span>
         </button>
 
-        {categoryData.map((category: any) => {
+        {categoryData?.data?.map((category: any) => {
           const isActive = selectedCategoryId === String(category.id);
 
           return (
@@ -177,14 +177,16 @@ const Products: React.FC<{ categoryId?: string; subCategoryId?: string; }> = ({ 
       ),
   });
 
+  const productData = data?.data;
+
   const sortedData = React.useMemo(() => {
-    if (!data) return [];
+    if (!productData) return [];
     if (sortOption === "lowToHigh")
-      return [...data].sort((a, b) => a.price - b.price);
+      return [...productData].sort((a, b) => a.price - b.price);
     if (sortOption === "highToLow")
-      return [...data].sort((a, b) => b.price - a.price);
-    return data;
-  }, [data, sortOption]);
+      return [...productData].sort((a, b) => b.price - a.price);
+    return productData;
+  }, [productData, sortOption]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;

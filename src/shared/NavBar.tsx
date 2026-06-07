@@ -45,6 +45,8 @@ const NavBar: React.FC = () => {
     queryFn: () => getCategories(),
   });
 
+  console.log(categoriesData?.data)
+
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error: {error.message}</div>;
 
@@ -88,11 +90,11 @@ const NavBar: React.FC = () => {
             <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out z-50">
               <div className="w-[700px] bg-white border rounded-xl shadow-xl p-6">
                 <div className="grid grid-cols-3 gap-8">
-                  {categoriesData?.map((category: any) => {
+                  {categoriesData?.data?.map((category: any) => {
                     {
                       /* 2. Find all subcategories that belong to this specific category */
                     }
-                    const filteredSubs = subCategoriesData?.filter(
+                    const filteredSubs = subCategoriesData?.data?.filter(
                       (sub: any) => sub.categoryId === category.id,
                     );
 
