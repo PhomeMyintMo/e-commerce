@@ -32,10 +32,10 @@ export const ProductCard = ({
   const status = getStockStatus(product);
 
   return (
-    <div className="group bg-white rounded-2xl overflow-hidden border shadow-sm hover:shadow-xl transition-all">
+    <div className="group bg-white overflow-hidden border shadow-sm hover:shadow-xl transition-all">
 
       <div
-        className="relative aspect-[4/5] bg-gray-100 cursor-pointer overflow-hidden isolate"
+        className="relative aspect-[5/5] bg-gray-100 cursor-pointer overflow-hidden isolate"
         onClick={() => navigate(`/products/${product.id}`)}
       >
         {product.images?.[0]?.url ? (

@@ -63,17 +63,36 @@ const HomePage: React.FC = () => {
 
       {/* new products */}
       <div className="px-4 sm:px-8 md:px-16 lg:px-32 mt-16 mb-16">
-  {/* Header */}
-  <div className="mb-10 text-center md:text-left">
-    <h2 className="text-2xl md:text-3xl font-semibold">
-      New Products
-    </h2>
-    <h4 className="text-gray-600 mt-1">
-      The latest looks, created with passion.
-    </h4>
-  </div>
+        {/* Header */}
+        <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-center md:text-left">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-semibold">
+              New Products
+            </h2>
+            <h4 className="text-gray-600 mt-1">
+              The latest looks, created with passion.
+            </h4>
+          </div>
 
-  {/* Horizontal Scroll */}
+          <div>
+            <Link
+              to="/products"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-black hover:text-gray-700 transition"
+            >
+              <span className="border-b border-transparent group-hover:border-black transition">
+                View All Products
+              </span>
+
+              {/* Animated Arrow */}
+              <ChevronRight
+                size={18}
+                className="transition-transform duration-200 group-hover:translate-x-1"
+              />
+            </Link>
+          </div>
+        </div>
+
+        {/* Horizontal Scroll */}
   <div className="w-full overflow-x-auto py-4">
     <div className="flex gap-6 min-w-max px-1">
       {latestProducts.map((product: any) => (
@@ -92,24 +111,7 @@ const HomePage: React.FC = () => {
       ))}
     </div>
   </div>
-
-  {/* View All CTA */}
-  <div className="mt-10 flex justify-center md:justify-end">
-    <Link
-      to="/products"
-      className="group flex items-center gap-2 text-sm font-medium text-black hover:text-gray-700 transition"
-    >
-      <span className="border-b border-transparent group-hover:border-black transition">
-        View All Products
-      </span>
-
-      {/* Animated Arrow */}
-      <ChevronRight
-        size={18}
-        className="transition-transform duration-200 group-hover:translate-x-1"
-      />
-    </Link>
-  </div>
+ 
 </div>
 
       {/* category */}
