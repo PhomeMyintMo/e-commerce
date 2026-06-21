@@ -13,7 +13,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { ArrowLeft } from "lucide-react";
 import { getProductDetail } from "@/apis/ProductsApi";
 import { useToast } from "@/hooks/use-toast";
 

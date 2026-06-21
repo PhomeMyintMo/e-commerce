@@ -1,5 +1,4 @@
 import { getCategories } from '@/apis/CategoriesApi'
-import Products from '@/features/Products/Products';
 import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
 

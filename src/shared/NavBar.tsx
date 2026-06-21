@@ -9,7 +9,7 @@ import {
   X,
 } from "lucide-react";
 import React, { useState } from "react";
-import { useLocation, Link, useNavigate, Links } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { getCategories } from "@/apis/CategoriesApi";
 import { useQuery } from "@tanstack/react-query";
 import { getSubCategories } from "@/apis/SubCategoriesApi";
