@@ -93,26 +93,26 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Horizontal Scroll */}
-  <div className="w-full overflow-x-auto py-4">
-    <div className="flex gap-6 min-w-max px-1">
-      {latestProducts.map((product: any) => (
-        <div
-          key={product.id}
-          className="min-w-[250px] sm:min-w-[300px] flex-shrink-0"
-        >
-          <ProductCard
-            product={product}
-            wishlist={wishlist}
-            addToWishlist={addToWishlist}
-            removeFavoriteItem={removeFavoriteItem}
-            navigate={navigate}
-          />
+        <div className="w-full py-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-7">
+            {latestProducts.map((product: any) => (
+              <div
+                key={product.id}
+                className=""
+              >
+                <ProductCard
+                  product={product}
+                  wishlist={wishlist}
+                  addToWishlist={addToWishlist}
+                  removeFavoriteItem={removeFavoriteItem}
+                  navigate={navigate}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
- 
-</div>
+
+      </div>
 
       {/* category */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  mt-4">
@@ -144,7 +144,7 @@ const HomePage: React.FC = () => {
               <h4 className="text-white text-lg">{category.description}</h4>
               <button
                 className="text-white text-sm font-semibold underline underline-offset-8 cursor-pointer hover:text-primary mt-8"
-                onClick={() => navigate(`/products/category/${category.id}`)}
+                onClick={() => navigate(`/products?categoryId=${category.id}`)}
               >
                 SHOP NOW
               </button>
