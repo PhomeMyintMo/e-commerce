@@ -14,14 +14,15 @@ const BreadcrumbComponent: React.FC = () => {
   const pathnames = location.pathname.split("/").filter((x) => x);
 
   const breadcrumbNames: Record<string, string> = {
-    "/": "Products",
+    "/": "Home",
+
   };
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink>Products</BreadcrumbLink>
+          <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         {pathnames.map((path, index) => {
           const href = "/" + pathnames.slice(0, index + 1).join("/");

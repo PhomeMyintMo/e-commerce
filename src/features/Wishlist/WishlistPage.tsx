@@ -1,44 +1,61 @@
-import { Button } from '@/components/ui/button';
+import { ProductCard } from '@/components/ProductCard';
 import { useWishlist } from '@/contexts/WishListContext'
-import { ArrowLeft, Heart } from 'lucide-react';
+import {ChevronLeft } from 'lucide-react';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const WishlistPage : React.FC = () => {
-  const {wishlist, removeFavoriteItem} = useWishlist();
+const WishlistPage: React.FC = () => {
+
+  const {
+    wishlist,
+    addToWishlist,
+    removeFavoriteItem
+  } = useWishlist();
+
   const navigate = useNavigate();
+
   return (
-    <div>
-      <Button className="cursor-pointer bg-slate-200 px-2 hover:bg-slate-300 flex items-start ms-8" onClick={()=> navigate("/")}><ArrowLeft className="text-black" /></Button>
-        {wishlist.length > 0 ? (
-          <div className='flex flex-wrap items-center justify-center md:flex-wrap gap-4 mt-4 p-4'>
-            {wishlist.map((wishlist: any)=> (
-              <div key={wishlist.id} className='border rounded p-2 w-80'>
-                <div className='relative'>
-                  <img
-                  src={wishlist.image}
-                  alt={wishlist.title}
-                  className='h-full w-full object-cover rounded'
-                  />
-                  <button onClick={()=> removeFavoriteItem(wishlist.id)}>
-                  <Heart className='absolute right-2 bottom-8 transition-colors duration-200 stroke-1'
-                  fill="red" 
-                  color='red'
-                  />
-                </button>
-                </div>
-                <p className="mt-2 text-sm font-medium">{wishlist.title}</p>
-                <p className="text-gray-500">${wishlist.price}</p>
-                </div>
+    <div className='p-4'>
+
+      <h1 className="font-semibold text-3xl mb-8 flex justify-center items-center">
+        Your Favorites
+      </h1>
+
+
+      {wishlist.length > 0 ? (
+        <>      <button className="flex cursor-pointer items-center gap-2" onClick={() => navigate("/products")}><ChevronLeft size={18} />Continue Shopping</button>
+
+
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4'>
+
+            {wishlist.map((item: any) => (
+
+              <ProductCard
+                key={item.id}
+                product={item}
+                wishlist={wishlist}
+                addToWishlist={addToWishlist}
+                removeFavoriteItem={removeFavoriteItem}
+                navigate={navigate}
+              />
+
             ))}
+
           </div>
-        ) : (
-          <div>
+        </>
+
+      ) : (
+        <div className="flex flex-col items-center justify-center flex-1">
+          <h1 className="font-medium text-lg">          
             0 items in your wish list.
-          </div>
-        )}
+          </h1>
+          <p className="text-sm py-4">Go back to <span className="font-semibold underline underline-offset-2 text-blue-500 cursor-pointer hover:scale-110" onClick={() => navigate("/products")}>product page</span>  and add items to your favorites.</p>
+        </div>
+
+
+      )}
     </div>
   )
 }
 
-export default WishlistPage
+export default WishlistPage;
